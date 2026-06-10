@@ -44,7 +44,7 @@ export default function Home() {
     await supabase.auth.signOut();
   };
 
-  // Encontra o próximo dia de jogos
+  // Find the next match day
   const now = new Date();
   let nextMatchDateStr = null;
   const futureMatches = allMatches.filter(g => new Date(g.date) > now);
@@ -71,13 +71,13 @@ export default function Home() {
         <div className={styles.actions}>
           {session ? (
             <>
-              <button className="btn-primary" onClick={() => router.push('/jogos')}>My Predictions</button>
+              <button className="btn-primary" onClick={() => router.push('/predictions')}>My Predictions</button>
               <button className="btn-secondary" onClick={handleLogout}>Log Out</button>
             </>
           ) : (
             <>
-              <button className="btn-primary" onClick={() => router.push('/login')}>Login</button>
-              <button className="btn-secondary" onClick={() => router.push('/login')}>Sign Up</button>
+              <button className="btn-primary" onClick={() => router.push('/login?mode=login')}>Login</button>
+              <button className="btn-secondary" onClick={() => router.push('/login?mode=signup')}>Sign Up</button>
             </>
           )}
         </div>
@@ -86,9 +86,9 @@ export default function Home() {
       {upcomingMatches.length > 0 && (
         <section className={styles.rankingSection} style={{ marginBottom: '40px' }}>
           <div className={styles.rankingHeader}>
-            <h2>🔥 Próximos Jogos</h2>
-            <Link href="/jogos" style={{ color: "var(--primary-color)", fontWeight: "600" }}>
-              Palpitar &rarr;
+            <h2>🔥 Upcoming Matches</h2>
+            <Link href="/predictions" style={{ color: "var(--primary-color)", fontWeight: "600" }}>
+              Predict &rarr;
             </Link>
           </div>
           
@@ -102,7 +102,7 @@ export default function Home() {
                 
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 16px' }}>
                   <span suppressHydrationWarning style={{ fontSize: '0.9rem', color: 'var(--primary-color)', fontWeight: '800' }}>
-                    {new Date(game.date).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                    {new Date(game.date).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}
                   </span>
                   <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>VS</span>
                 </div>
@@ -128,7 +128,7 @@ export default function Home() {
         <div className={`${styles.rankingList} glass-panel`}>
           {leaderboard.length === 0 ? (
             <div style={{ textAlign: "center", color: "var(--text-muted)", padding: "16px" }}>
-              Ninguém pontuou ainda.
+              No one has scored points yet.
             </div>
           ) : (
             leaderboard.map((user, index) => (

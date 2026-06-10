@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import styles from "./jogos.module.css";
+import styles from "./predictions.module.css";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 import allMatches from "@/data/matches";
 
-export default function Jogos() {
+export default function Predictions() {
   const [games, setGames] = useState(allMatches);
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -22,20 +22,20 @@ export default function Jogos() {
       const { data: { session } } = await supabase.auth.getSession();
       
       if (!session) {
-        // Redireciona se não estiver logado
+        // Redirect if not logged in
         router.push('/login');
         return;
       }
       
       setUser(session.user);
       
-      // Busca os palpites salvos no banco
+      // Fetch predictions saved in the database
       const { data: predictions, error } = await supabase
         .from('predictions')
         .select('*')
         .eq('user_id', session.user.id);
         
-      // Busca o nickname se existir
+      // Fetch nickname if it exists
       const { data: profile } = await supabase
         .from('profiles')
         .select('nickname')
@@ -47,7 +47,7 @@ export default function Jogos() {
       }
       
       if (!error && predictions && predictions.length > 0) {
-        // Atualiza o state 'games' com os valores vindos do banco
+        // Update 'games' state with values from the database
         setGames(prevGames => prevGames.map(game => {
           const savedPrediction = predictions.find(p => p.match_id === game.id);
           if (savedPrediction) {
@@ -67,7 +67,7 @@ export default function Jogos() {
   }, [router]);
 
   const handleScoreChange = (id, team, value) => {
-    // Só aceita até 2 digitos numéricos
+    // Only accepts up to 2 numeric digits
     if (value.length > 2) return;
     
     setGames(prevGames => prevGames.map(game => {
@@ -90,7 +90,7 @@ export default function Jogos() {
     if (current > 0) {
       handleScoreChange(id, team, String(current - 1));
     } else if (currentValue === "") {
-      // Se tiver vazio e apertar menos, vira 0
+      // If empty and minus is clicked, set to 0
       handleScoreChange(id, team, "0");
     }
   };
@@ -99,16 +99,16 @@ export default function Jogos() {
     if (!user) return;
     setIsSaving(true);
     
-    // Pega todos os jogos que têm pelo menos um lado preenchido
+    // Get all matches that have at least one side filled
     const partiallyOrFullyFilled = games.filter(g => g.homeScore !== "" || g.awayScore !== "");
     
     if (partiallyOrFullyFilled.length === 0) {
-      alert("Por favor, preencha pelo menos um palpite antes de salvar.");
+      alert("Please enter at least one prediction before saving.");
       setIsSaving(false);
       return;
     }
 
-    // Monta o payload assumindo "0" para campos vazios caso o outro lado esteja preenchido
+    // Build payload assuming "0" for empty fields if the other side is filled
     const payload = partiallyOrFullyFilled.map(g => {
       const hScore = g.homeScore === "" ? 0 : parseInt(g.homeScore);
       const aScore = g.awayScore === "" ? 0 : parseInt(g.awayScore);
@@ -122,8 +122,8 @@ export default function Jogos() {
       };
     });
 
-    // Usa o upsert com onConflict baseado na restrição única (user_id, match_id).
-    // IMPORTANTE: Não deve haver espaços na string 'user_id,match_id'.
+    // Use upsert with onConflict based on unique constraint (user_id, match_id).
+    // IMPORTANT: There should be no spaces in the 'user_id,match_id' string.
     const { error } = await supabase
       .from('predictions')
       .upsert(payload, { onConflict: 'user_id,match_id' });
@@ -132,9 +132,9 @@ export default function Jogos() {
     
     if (error) {
       console.error("Upsert Error:", error);
-      alert(`Erro ao salvar: ${error.message || 'Verifique o console'}`);
+      alert(`Error saving: ${error.message || 'Check the console'}`);
     } else {
-      alert("Palpites salvos com sucesso! Boa sorte!");
+      alert("Predictions saved successfully! Good luck!");
     }
   };
 
@@ -149,9 +149,9 @@ export default function Jogos() {
     setIsSavingNick(false);
     if (error) {
       console.error(error);
-      alert("Erro ao salvar o Nickname.");
+      alert("Error saving nickname.");
     } else {
-      alert("Nickname atualizado com sucesso!");
+      alert("Nickname updated successfully!");
     }
   };
 
@@ -196,34 +196,34 @@ export default function Jogos() {
         &larr; Back to Home
       </Link>
       <header className={styles.header}>
-        <h1 className={styles.title}>Group Stage Predictions</h1>
-        <p className={styles.subtitle}>Fill in your scores below. Matches lock at their kickoff times.</p>
+        <h1 className={styles.title}>Predictions</h1>
+        <p className={styles.subtitle}>Fill in your predictions and good luck!</p>
       </header>
 
       <section className={`glass-panel ${styles.nickBanner}`}>
         <div className={styles.nickRow}>
-          <label style={{ color: "#fff", fontWeight: "bold" }}>Seu Nickname:</label>
+          <label style={{ color: "#fff", fontWeight: "bold" }}>Your Nickname:</label>
           <input 
             type="text" 
             className={styles.nickInput}
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
-            placeholder="Ex: Mago das Apostas"
+            placeholder="e.g., Prediction Master"
             maxLength={20}
           />
           <button className={`btn-primary ${styles.nickBtn}`} onClick={handleSaveNickname} disabled={isSavingNick || !nickname.trim()}>
-            {isSavingNick ? "Salvando..." : "Salvar Nick"}
+            {isSavingNick ? "Saving..." : "Save Nickname"}
           </button>
         </div>
       </section>
 
       <section className={`glass-panel ${styles.rulesBanner}`}>
-        <h3>🏆 Regras de Pontuação</h3>
+        <h3>🏆 Scoring Rules</h3>
         <ul className={styles.rulesList}>
-          <li><span className={styles.pointsBadge}>5 pts</span> <strong>Na Mosca:</strong> Acertou o placar exato (ex: apostou 2x1, deu 2x1).</li>
-          <li><span className={styles.pointsBadge}>3 pts</span> <strong>Vencedor + Saldo:</strong> Acertou quem ganhou e o saldo de gols (ex: apostou 2x0, deu 3x1).</li>
-          <li><span className={styles.pointsBadge}>2 pts</span> <strong>Empate:</strong> Acertou que seria empate, mas errou os gols (ex: apostou 1x1, deu 2x2).</li>
-          <li><span className={styles.pointsBadge}>1 pt</span> <strong>Apenas Vencedor:</strong> Acertou quem ganhou, mas errou o saldo (ex: apostou 1x0, deu 3x0).</li>
+          <li><span className={styles.pointsBadge}>5 pts</span> <strong>Bullseye:</strong> Guessed the exact score (e.g., predicted 2-1, ended 2-1).</li>
+          <li><span className={styles.pointsBadge}>3 pts</span> <strong>Winner + GD:</strong> Guessed the winner and the goal difference (e.g., predicted 2-0, ended 3-1).</li>
+          <li><span className={styles.pointsBadge}>2 pts</span> <strong>Draw:</strong> Guessed a draw but missed the exact scores (e.g., predicted 1-1, ended 2-2).</li>
+          <li><span className={styles.pointsBadge}>1 pt</span> <strong>Winner Only:</strong> Guessed the winner but missed the goal difference (e.g., predicted 1-0, ended 3-0).</li>
         </ul>
       </section>
 
@@ -232,13 +232,13 @@ export default function Jogos() {
           className={`${styles.tabBtn} ${activeTab === "groups" ? styles.activeTab : ""}`}
           onClick={() => setActiveTab("groups")}
         >
-          Fase de Grupos
+          Group Stage
         </button>
         <button 
           className={`${styles.tabBtn} ${activeTab === "knockouts" ? styles.activeTab : ""}`}
           onClick={() => setActiveTab("knockouts")}
         >
-          Mata-Mata (Eliminatórias)
+          Knockouts
         </button>
       </div>
 
@@ -254,7 +254,7 @@ export default function Jogos() {
                 
                 return (
                   <div key={game.id} className={`glass-panel ${styles.matchCard} ${isNextMatchDay ? styles.highlightCard : ""}`}>
-                    {isNextMatchDay && <div className={styles.highlightBadge}>🔥 Próximos Jogos</div>}
+                    {isNextMatchDay && <div className={styles.highlightBadge}>🔥 Upcoming Matches</div>}
                     <span className={styles.matchDate} suppressHydrationWarning>{formatDisplayDate(game.date)}</span>
                     {isLocked && <span className={styles.lockedBadge}>Locked</span>}
                     
@@ -344,10 +344,10 @@ export default function Jogos() {
                 
                 return (
                   <div key={game.id} className={`glass-panel ${styles.matchCard} ${isNextMatchDay ? styles.highlightCard : ""}`}>
-                    {isNextMatchDay && <div className={styles.highlightBadge}>🔥 Próximos Jogos</div>}
+                    {isNextMatchDay && <div className={styles.highlightBadge}>🔥 Upcoming Matches</div>}
                     <span className={styles.matchDate} suppressHydrationWarning>{formatDisplayDate(game.date)}</span>
                     {isLocked && <span className={styles.lockedBadge}>Locked</span>}
-                    {isTBD && <span className={styles.lockedBadge} style={{ background: "rgba(255, 165, 0, 0.2)", color: "#FFA500" }}>Aguardando Times</span>}
+                    {isTBD && <span className={styles.lockedBadge} style={{ background: "rgba(255, 165, 0, 0.2)", color: "#FFA500" }}>Waiting for Teams</span>}
                     
                     <div className={styles.teamsRow} style={{ opacity: isTBD ? 0.6 : 1 }}>
                       <div className={styles.team}>
@@ -425,15 +425,15 @@ export default function Jogos() {
 
         <div className={styles.actionRow} style={{ marginTop: "24px" }}>
           <button className="btn-primary" onClick={handleSave} style={{ width: "100%", fontSize: "1.1rem" }} disabled={isSaving || isLoading}>
-            {isLoading ? "Carregando..." : isSaving ? "Salvando Palpites..." : "Save All Predictions"}
+            {isLoading ? "Loading..." : isSaving ? "Saving predictions..." : "Save All Predictions"}
           </button>
         </div>
 
         <div className={styles.scrollButtons}>
-          <button className={styles.scrollBtn} onClick={scrollToTop} aria-label="Scroll to top" title="Ir para o topo">
+          <button className={styles.scrollBtn} onClick={scrollToTop} aria-label="Scroll to top" title="Scroll to top">
             ↑
           </button>
-          <button className={styles.scrollBtn} onClick={scrollToBottom} aria-label="Scroll to bottom" title="Ir para o final">
+          <button className={styles.scrollBtn} onClick={scrollToBottom} aria-label="Scroll to bottom" title="Scroll to bottom">
             ↓
           </button>
         </div>

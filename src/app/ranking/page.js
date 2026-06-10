@@ -31,7 +31,7 @@ export default function Ranking() {
   if (isLoading) {
     return (
       <main className={styles.container}>
-        <div className={styles.loading}>Carregando o placar dos campeões...</div>
+        <div className={styles.loading}>Loading the champions leaderboard...</div>
       </main>
     );
   }
@@ -54,13 +54,13 @@ export default function Ranking() {
 
       <header className={styles.header}>
         <h1 className={styles.title}>Hall of Fame</h1>
-        <p className={styles.subtitle}>O ranking oficial dos maiores videntes da Copa.</p>
+        <p className={styles.subtitle}>The official leaderboard of the World Cup predictors.</p>
       </header>
 
       {leaderboard.length === 0 ? (
         <div className="glass-panel" style={{ textAlign: "center", padding: "40px" }}>
-          <h3 style={{ color: "#fff", marginBottom: "8px" }}>Ninguém pontuou ainda!</h3>
-          <p style={{ color: "var(--text-muted)" }}>Os resultados oficiais ainda não foram lançados.</p>
+          <h3 style={{ color: "#fff", marginBottom: "8px" }}>No one has scored points yet!</h3>
+          <p style={{ color: "var(--text-muted)" }}>Official match results have not been recorded yet.</p>
         </div>
       ) : (
         <>

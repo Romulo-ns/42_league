@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 import styles from "./login.module.css";
@@ -8,33 +8,48 @@ import Link from "next/link";
 
 export default function Login() {
   const router = useRouter();
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [authMode, setAuthMode] = useState("login"); // "login", "signup", "forgot"
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const mode = params.get("mode");
+    if (mode === "signup" || mode === "login" || mode === "forgot") {
+      setAuthMode(mode);
+    }
+  }, []);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleAuth = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     try {
-      if (isSignUp) {
+      if (authMode === "signup") {
         const { error } = await supabase.auth.signUp({
           email,
           password,
         });
         if (error) throw error;
         alert("Registration successful! You can now log in.");
-        setIsSignUp(false);
-      } else {
+        setAuthMode("login");
+      } else if (authMode === "login") {
         const { error } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
         if (error) throw error;
         router.push("/");
+      } else if (authMode === "forgot") {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: window.location.origin + "/reset-password",
+        });
+        if (error) throw error;
+        alert("A password reset link has been sent to your email!");
+        setAuthMode("login");
       }
     } catch (err) {
       setError(err.message);
@@ -51,13 +66,21 @@ export default function Login() {
         </Link>
         
         <h1 className={`${styles.title} text-gradient`}>
-          {isSignUp ? "Create Account" : "Welcome Back"}
+          {authMode === "signup"
+            ? "Create Account"
+            : authMode === "forgot"
+            ? "Reset Password"
+            : "Welcome Back"}
         </h1>
         <p style={{ color: "var(--text-muted)" }}>
-          {isSignUp ? "Sign up to start predicting!" : "Log in to your 42 League account."}
+          {authMode === "signup"
+            ? "Sign up to start predicting!"
+            : authMode === "forgot"
+            ? "Enter your email to receive a password reset link."
+            : "Log in to your 42 League account."}
         </p>
 
-        <form className={styles.form} onSubmit={handleAuth}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
             <label>Email</label>
             <input
@@ -69,27 +92,47 @@ export default function Login() {
             />
           </div>
           
-          <div className={styles.inputGroup}>
-            <label>Password</label>
-            <input
-              type="password"
-              className={styles.input}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
+          {authMode !== "forgot" && (
+            <>
+              <div className={styles.inputGroup}>
+                <label>Password</label>
+                <input
+                  type="password"
+                  className={styles.input}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+
+              {authMode === "login" && (
+                <button
+                  type="button"
+                  className={styles.forgotLink}
+                  onClick={() => setAuthMode("forgot")}
+                >
+                  Forgot password?
+                </button>
+              )}
+            </>
+          )}
 
           {error && <div className={styles.error}>{error}</div>}
 
           <button type="submit" className="btn-primary" disabled={loading} style={{ marginTop: "8px" }}>
-            {loading ? "Processing..." : isSignUp ? "Sign Up" : "Log In"}
+            {loading ? "Processing..." : authMode === "signup" ? "Sign Up" : authMode === "forgot" ? "Send Reset Link" : "Log In"}
           </button>
         </form>
 
-        <button className={styles.toggleMode} onClick={() => setIsSignUp(!isSignUp)}>
-          {isSignUp ? "Already have an account? Log in." : "Don't have an account? Sign up."}
-        </button>
+        {authMode === "forgot" ? (
+          <button className={styles.toggleMode} onClick={() => setAuthMode("login")}>
+            Back to Login
+          </button>
+        ) : (
+          <button className={styles.toggleMode} onClick={() => setAuthMode(authMode === "login" ? "signup" : "login")}>
+            {authMode === "login" ? "Don't have an account? Sign up." : "Already have an account? Log in."}
+          </button>
+        )}
       </div>
     </main>
   );
