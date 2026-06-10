@@ -40,6 +40,11 @@ export default function Predictions() {
         .from('official_matches')
         .select('*');
         
+      // Fetch knockout teams
+      const { data: knockoutTeams } = await supabase
+        .from('knockout_teams')
+        .select('*');
+        
       // Fetch nickname if it exists
       const { data: profile } = await supabase
         .from('profiles')
@@ -55,14 +60,24 @@ export default function Predictions() {
       setGames(prevGames => prevGames.map(game => {
         const savedPrediction = predictions?.find(p => p.match_id === game.id);
         const savedOfficial = officialScores?.find(o => o.match_id === game.id);
+        const savedKnockout = knockoutTeams?.find(k => k.match_id === game.id);
         
-        return {
+        let updatedGame = {
           ...game,
           homeScore: savedPrediction ? String(savedPrediction.home_score) : game.homeScore,
           awayScore: savedPrediction ? String(savedPrediction.away_score) : game.awayScore,
           officialHome: savedOfficial ? savedOfficial.home_score : undefined,
           officialAway: savedOfficial ? savedOfficial.away_score : undefined
         };
+        
+        if (savedKnockout) {
+          updatedGame.homeTeam = savedKnockout.home_team;
+          updatedGame.homeFlag = savedKnockout.home_flag;
+          updatedGame.awayTeam = savedKnockout.away_team;
+          updatedGame.awayFlag = savedKnockout.away_flag;
+        }
+        
+        return updatedGame;
       }));
 
       setIsLoading(false);

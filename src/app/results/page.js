@@ -24,17 +24,31 @@ export default function Results() {
         .from('official_matches')
         .select('*');
         
-      if (!error && officialScores && officialScores.length > 0) {
+      // Fetch knockout teams
+      const { data: knockoutTeams } = await supabase
+        .from('knockout_teams')
+        .select('*');
+        
+      if (!error) {
         pastMatches = pastMatches.map(game => {
-          const savedScore = officialScores.find(p => p.match_id === game.id);
+          const savedScore = officialScores?.find(p => p.match_id === game.id);
+          const savedKnockout = knockoutTeams?.find(k => k.match_id === game.id);
+          
+          let updatedGame = { ...game };
+          
           if (savedScore) {
-            return {
-              ...game,
-              officialHome: savedScore.home_score,
-              officialAway: savedScore.away_score
-            };
+            updatedGame.officialHome = savedScore.home_score;
+            updatedGame.officialAway = savedScore.away_score;
           }
-          return game;
+          
+          if (savedKnockout) {
+            updatedGame.homeTeam = savedKnockout.home_team;
+            updatedGame.homeFlag = savedKnockout.home_flag;
+            updatedGame.awayTeam = savedKnockout.away_team;
+            updatedGame.awayFlag = savedKnockout.away_flag;
+          }
+          
+          return updatedGame;
         });
       }
       

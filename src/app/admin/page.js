@@ -5,7 +5,13 @@ import styles from "./admin.module.css";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
-import allMatches from "@/data/matches";
+import allMatches, { groupTeams } from "@/data/matches";
+
+const allCountries = Object.values(groupTeams)
+  .flat()
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+const teamOptions = [{ name: "TBD", flag: "un" }, ...allCountries];
 
 export default function AdminPanel() {
   const [games, setGames] = useState(allMatches);
@@ -37,18 +43,31 @@ export default function AdminPanel() {
         .from('official_matches')
         .select('*');
         
-      if (!error && officialScores && officialScores.length > 0) {
-        // Update 'games' state with official scores
+      // Fetch knockout teams (ignore error if table doesn't exist yet)
+      const { data: knockoutTeams } = await supabase
+        .from('knockout_teams')
+        .select('*');
+        
+      if (!error) {
         setGames(prevGames => prevGames.map(game => {
-          const savedScore = officialScores.find(p => p.match_id === game.id);
+          const savedScore = officialScores?.find(p => p.match_id === game.id);
+          const savedKnockout = knockoutTeams?.find(k => k.match_id === game.id);
+          
+          let updatedGame = { ...game };
+          
           if (savedScore) {
-            return {
-              ...game,
-              homeScore: String(savedScore.home_score),
-              awayScore: String(savedScore.away_score)
-            };
+            updatedGame.homeScore = String(savedScore.home_score);
+            updatedGame.awayScore = String(savedScore.away_score);
           }
-          return game;
+          
+          if (savedKnockout) {
+            updatedGame.homeTeam = savedKnockout.home_team;
+            updatedGame.homeFlag = savedKnockout.home_flag;
+            updatedGame.awayTeam = savedKnockout.away_team;
+            updatedGame.awayFlag = savedKnockout.away_flag;
+          }
+          
+          return updatedGame;
         }));
       }
       setIsLoading(false);
@@ -62,6 +81,22 @@ export default function AdminPanel() {
     setGames(prevGames => prevGames.map(game => {
       if (game.id === id) {
         return { ...game, [team]: value };
+      }
+      return game;
+    }));
+  };
+
+  const handleTeamChange = (id, side, teamName) => {
+    const selectedTeam = teamOptions.find(t => t.name === teamName);
+    if (!selectedTeam) return;
+    
+    setGames(prevGames => prevGames.map(game => {
+      if (game.id === id) {
+        return { 
+          ...game, 
+          [side + 'Team']: selectedTeam.name,
+          [side + 'Flag']: selectedTeam.flag
+        };
       }
       return game;
     }));
@@ -106,13 +141,37 @@ export default function AdminPanel() {
       .from('official_matches')
       .upsert(payload, { onConflict: 'match_id' });
       
+    // Upsert knockout teams
+    const knockoutPayload = games
+      .filter(g => g.phase === 'knockouts' && (g.homeTeam !== 'TBD' || g.awayTeam !== 'TBD'))
+      .map(g => ({
+        match_id: g.id,
+        home_team: g.homeTeam,
+        home_flag: g.homeFlag,
+        away_team: g.awayTeam,
+        away_flag: g.awayFlag
+      }));
+      
+    if (knockoutPayload.length > 0) {
+      const { error: ktError } = await supabase
+        .from('knockout_teams')
+        .upsert(knockoutPayload, { onConflict: 'match_id' });
+        
+      if (ktError) {
+        console.error("Knockout Teams Upsert Error:", ktError);
+        alert(`Error saving knockout teams: ${ktError.message}`);
+        setIsSaving(false);
+        return;
+      }
+    }
+      
     setIsSaving(false);
     
     if (error) {
       console.error("Upsert Error:", error);
       alert(`Error saving official scores: ${error.message}`);
     } else {
-      alert("Official scores saved successfully! The leaderboard will now update.");
+      alert("Changes saved successfully! The leaderboard will now update.");
     }
   };
 
@@ -155,7 +214,18 @@ export default function AdminPanel() {
             <div className={styles.teamsRow}>
               <div className={styles.team}>
                 {game.homeFlag !== "un" && <img src={`https://flagcdn.com/w80/${game.homeFlag}.png`} alt={game.homeTeam} className={styles.flag} />}
-                <span className={styles.teamName}>{game.homeTeam}</span>
+                
+                {game.phase === 'knockouts' ? (
+                  <select 
+                    value={game.homeTeam} 
+                    onChange={(e) => handleTeamChange(game.id, 'home', e.target.value)}
+                    style={{ background: 'rgba(0,0,0,0.5)', color: '#fff', border: '1px solid var(--card-border)', borderRadius: '4px', padding: '4px 8px', width: '100%' }}
+                  >
+                    {teamOptions.map(t => <option key={t.name} value={t.name}>{t.name}</option>)}
+                  </select>
+                ) : (
+                  <span className={styles.teamName}>{game.homeTeam}</span>
+                )}
                 
                 <div className={styles.scoreControl}>
                   <button 
@@ -186,7 +256,18 @@ export default function AdminPanel() {
 
               <div className={styles.team}>
                 {game.awayFlag !== "un" && <img src={`https://flagcdn.com/w80/${game.awayFlag}.png`} alt={game.awayTeam} className={styles.flag} />}
-                <span className={styles.teamName}>{game.awayTeam}</span>
+                
+                {game.phase === 'knockouts' ? (
+                  <select 
+                    value={game.awayTeam} 
+                    onChange={(e) => handleTeamChange(game.id, 'away', e.target.value)}
+                    style={{ background: 'rgba(0,0,0,0.5)', color: '#fff', border: '1px solid var(--card-border)', borderRadius: '4px', padding: '4px 8px', width: '100%' }}
+                  >
+                    {teamOptions.map(t => <option key={t.name} value={t.name}>{t.name}</option>)}
+                  </select>
+                ) : (
+                  <span className={styles.teamName}>{game.awayTeam}</span>
+                )}
                 
                 <div className={styles.scoreControl}>
                   <button 
