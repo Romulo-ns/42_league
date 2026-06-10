@@ -11,10 +11,15 @@ export const metadata = {
   description: "Predict the results of the 2026 World Cup!",
 };
 
+import Header from "@/components/Header";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={outfit.className} suppressHydrationWarning>{children}</body>
+      <body className={outfit.className} suppressHydrationWarning>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

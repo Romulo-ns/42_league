@@ -17,12 +17,7 @@
   animation: fadeIn 0.8s ease-out;
 }
 
-.title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  line-height: 1.1;
-  margin-bottom: 8px;
-}
+
 
 .subtitle {
   font-size: 1.25rem;

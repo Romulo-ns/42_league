@@ -82,9 +82,6 @@ export default function Home() {
   return (
     <main className={styles.container}>
       <section className={styles.hero}>
-        <h1 className={`${styles.title} text-gradient`}>
-          🏆 42 League
-        </h1>
         <p className={styles.subtitle}>
           Get ready for the biggest World Cup in history. 
           Make your predictions, challenge your friends, and reach the top of the leaderboard!
