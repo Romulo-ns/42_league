@@ -22,12 +22,17 @@ export default function Header() {
   const shouldShrink = !isHome || isScrolled;
 
   return (
-    <div className={`${styles.stickyBanner} ${shouldShrink ? styles.scrolledBanner : ''}`}>
-      <Link href="/" style={{ textDecoration: 'none' }}>
-        <h1 className={`${styles.title} text-gradient ${shouldShrink ? styles.scrolledTitle : ''}`}>
-          🏆 42 League
-        </h1>
-      </Link>
-    </div>
+    <>
+      {/* Spacer para manter a altura do documento estática e evitar o bug do scroll */}
+      <div style={{ height: isHome ? '88px' : '48px', width: '100%' }} />
+      
+      <div className={`${styles.fixedBanner} ${shouldShrink ? styles.scrolledBanner : ''}`}>
+        <Link href="/" style={{ textDecoration: 'none' }}>
+          <h1 className={`${styles.title} text-gradient ${shouldShrink ? styles.scrolledTitle : ''}`}>
+            🏆 42 League
+          </h1>
+        </Link>
+      </div>
+    </>
   );
 }
