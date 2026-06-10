@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase";
 import styles from "./home.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import allMatches from "@/data/matches";
 
 export default function Home() {
   const router = useRouter();
@@ -43,6 +44,20 @@ export default function Home() {
     await supabase.auth.signOut();
   };
 
+  // Encontra o próximo dia de jogos
+  const now = new Date();
+  let nextMatchDateStr = null;
+  const futureMatches = allMatches.filter(g => new Date(g.date) > now);
+  if (futureMatches.length > 0) {
+    const sortedFuture = futureMatches.sort((a, b) => new Date(a.date) - new Date(b.date));
+    const nextMatch = sortedFuture[0];
+    nextMatchDateStr = new Date(nextMatch.date).toISOString().split('T')[0];
+  }
+
+  const upcomingMatches = nextMatchDateStr 
+    ? allMatches.filter(g => g.date.startsWith(nextMatchDateStr)) 
+    : [];
+
   return (
     <main className={styles.container}>
       <section className={styles.hero}>
@@ -67,6 +82,40 @@ export default function Home() {
           )}
         </div>
       </section>
+
+      {upcomingMatches.length > 0 && (
+        <section className={styles.rankingSection} style={{ marginBottom: '40px' }}>
+          <div className={styles.rankingHeader}>
+            <h2>🔥 Próximos Jogos</h2>
+            <Link href="/jogos" style={{ color: "var(--primary-color)", fontWeight: "600" }}>
+              Palpitar &rarr;
+            </Link>
+          </div>
+          
+          <div className={`${styles.rankingList} glass-panel`} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {upcomingMatches.map((game) => (
+              <div key={game.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px', background: 'rgba(255,255,255,0.02)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1 }}>
+                  <img src={`https://flagcdn.com/w40/${game.homeFlag}.png`} alt={game.homeTeam} style={{ width: '28px', borderRadius: '4px' }} />
+                  <span style={{ fontWeight: '600', color: '#fff' }}>{game.homeTeam}</span>
+                </div>
+                
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 16px' }}>
+                  <span suppressHydrationWarning style={{ fontSize: '0.9rem', color: 'var(--primary-color)', fontWeight: '800' }}>
+                    {new Date(game.date).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                  </span>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>VS</span>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1, justifyContent: 'flex-end' }}>
+                  <span style={{ fontWeight: '600', color: '#fff' }}>{game.awayTeam}</span>
+                  <img src={`https://flagcdn.com/w40/${game.awayFlag}.png`} alt={game.awayTeam} style={{ width: '28px', borderRadius: '4px' }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className={styles.rankingSection}>
         <div className={styles.rankingHeader}>

@@ -180,6 +180,16 @@ export default function Jogos() {
     return d.toLocaleString('en-US', options).replace(',', ' -');
   }
 
+  // Find the next upcoming match day to highlight
+  const now = new Date();
+  let nextMatchDateStr = null;
+  const futureMatches = games.filter(g => new Date(g.date) > now);
+  if (futureMatches.length > 0) {
+    const sortedFuture = futureMatches.sort((a, b) => new Date(a.date) - new Date(b.date));
+    const nextMatch = sortedFuture[0];
+    nextMatchDateStr = new Date(nextMatch.date).toISOString().split('T')[0];
+  }
+
   return (
     <main className={styles.container}>
       <Link href="/" style={{ color: "var(--text-muted)", marginBottom: "-20px" }}>
@@ -240,9 +250,11 @@ export default function Jogos() {
             <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginTop: "16px" }}>
               {games.filter(g => g.group === group && g.phase === "groups").map(game => {
                 const isLocked = checkIsLocked(game.date);
+                const isNextMatchDay = nextMatchDateStr && game.date.startsWith(nextMatchDateStr);
                 
                 return (
-                  <div key={game.id} className={`glass-panel ${styles.matchCard}`}>
+                  <div key={game.id} className={`glass-panel ${styles.matchCard} ${isNextMatchDay ? styles.highlightCard : ""}`}>
+                    {isNextMatchDay && <div className={styles.highlightBadge}>🔥 Próximos Jogos</div>}
                     <span className={styles.matchDate} suppressHydrationWarning>{formatDisplayDate(game.date)}</span>
                     {isLocked && <span className={styles.lockedBadge}>Locked</span>}
                     
@@ -328,9 +340,11 @@ export default function Jogos() {
               {games.filter(g => g.group === phase && g.phase === "knockouts").map(game => {
                 const isLocked = checkIsLocked(game.date);
                 const isTBD = game.homeTeam === "TBD" || game.awayTeam === "TBD";
+                const isNextMatchDay = nextMatchDateStr && game.date.startsWith(nextMatchDateStr);
                 
                 return (
-                  <div key={game.id} className={`glass-panel ${styles.matchCard}`}>
+                  <div key={game.id} className={`glass-panel ${styles.matchCard} ${isNextMatchDay ? styles.highlightCard : ""}`}>
+                    {isNextMatchDay && <div className={styles.highlightBadge}>🔥 Próximos Jogos</div>}
                     <span className={styles.matchDate} suppressHydrationWarning>{formatDisplayDate(game.date)}</span>
                     {isLocked && <span className={styles.lockedBadge}>Locked</span>}
                     {isTBD && <span className={styles.lockedBadge} style={{ background: "rgba(255, 165, 0, 0.2)", color: "#FFA500" }}>Aguardando Times</span>}

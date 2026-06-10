@@ -371,3 +371,27 @@
   color: #fff;
   box-shadow: 0 4px 15px var(--primary-glow);
 }
+
+.highlightCard {
+  border: 2px solid var(--primary-color) !important;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.2) !important;
+  position: relative;
+  transform: scale(1.01);
+  transition: all 0.3s ease;
+}
+
+.highlightBadge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #ff4b2b, #ff416c);
+  color: #fff;
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(255, 65, 108, 0.4);
+  z-index: 10;
+  white-space: nowrap;
+}
