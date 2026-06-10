@@ -7,13 +7,13 @@ const outfit = Outfit({
 });
 
 export const metadata = {
-  title: "World Cup Predictor 2026",
-  description: "Preveja os resultados da Copa do Mundo 2026!",
+  title: "42 League",
+  description: "Predict the results of the 2026 World Cup!",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR">
+    <html lang="en">
       <body className={outfit.className}>{children}</body>
     </html>
   );

@@ -12,23 +12,23 @@ export default function Home() {
     <main className={styles.container}>
       <section className={styles.hero}>
         <h1 className={`${styles.title} text-gradient`}>
-          🏆 World Cup<br />Predictor 2026
+          🏆 42 League
         </h1>
         <p className={styles.subtitle}>
-          Prepare-se para a maior Copa do Mundo da história. 
-          Faça seus palpites, desafie seus amigos e alcance o topo do ranking!
+          Get ready for the biggest World Cup in history. 
+          Make your predictions, challenge your friends, and reach the top of the leaderboard!
         </p>
         <div className={styles.actions}>
-          <button className="btn-primary">Entrar</button>
-          <button className="btn-secondary">Criar Conta</button>
+          <button className="btn-primary">Login</button>
+          <button className="btn-secondary">Sign Up</button>
         </div>
       </section>
 
       <section className={styles.rankingSection}>
         <div className={styles.rankingHeader}>
-          <h2>Ranking Atual</h2>
+          <h2>Current Leaderboard</h2>
           <Link href="/ranking" style={{ color: "var(--primary-color)", fontWeight: "600" }}>
-            Ver todos &rarr;
+            View all &rarr;
           </Link>
         </div>
         

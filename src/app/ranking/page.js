@@ -13,12 +13,12 @@ export default function Ranking() {
   return (
     <main className={styles.container}>
       <Link href="/" style={{ color: "var(--text-muted)", marginBottom: "-20px" }}>
-        &larr; Voltar para Home
+        &larr; Back to Home
       </Link>
 
       <div className={styles.hero} style={{ marginBottom: "0" }}>
-        <h1 className="text-gradient">Ranking Global</h1>
-        <p style={{ color: "var(--text-muted)" }}>Os melhores palpites do mundo!</p>
+        <h1 className="text-gradient">Global Leaderboard</h1>
+        <p style={{ color: "var(--text-muted)" }}>The best predictions in the world!</p>
       </div>
 
       <section className={styles.rankingSection} style={{ animationDelay: "0.1s" }}>

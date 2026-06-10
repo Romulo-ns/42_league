@@ -9,27 +9,27 @@ export default function Jogos() {
   const [scoreAway, setScoreAway] = useState("");
 
   const handleSave = () => {
-    alert(`Palpite Salvo: México ${scoreHome} x ${scoreAway} Japão`);
+    alert(`Prediction Saved: Mexico ${scoreHome} x ${scoreAway} Japan`);
   };
 
   return (
     <main className={styles.container}>
       <Link href="/" style={{ color: "var(--text-muted)", marginBottom: "-20px" }}>
-        &larr; Voltar para Home
+        &larr; Back to Home
       </Link>
 
       <div className={styles.header}>
-        <h1 className="text-gradient">Fase de Grupos</h1>
-        <p style={{ color: "var(--text-muted)" }}>Preencha os placares exatos para pontuar mais!</p>
+        <h1 className="text-gradient">Group Stage</h1>
+        <p style={{ color: "var(--text-muted)" }}>Fill in the exact scores to earn more points!</p>
       </div>
 
       <section className={styles.groupSection}>
-        <h2 className={styles.groupTitle}>Grupo A</h2>
+        <h2 className={styles.groupTitle}>Group A</h2>
 
         <div className={`glass-panel ${styles.matchCard}`}>
           <div className={styles.teamsRow}>
             <div className={styles.team}>
-              <span className={styles.teamName}>🇲🇽 México</span>
+              <span className={styles.teamName}>🇲🇽 Mexico</span>
               <input 
                 type="number" 
                 className={styles.scoreInput} 
@@ -44,7 +44,7 @@ export default function Jogos() {
             <span className={styles.vs}>X</span>
 
             <div className={styles.team}>
-              <span className={styles.teamName}>🇯🇵 Japão</span>
+              <span className={styles.teamName}>🇯🇵 Japan</span>
               <input 
                 type="number" 
                 className={styles.scoreInput} 
@@ -58,7 +58,7 @@ export default function Jogos() {
           </div>
 
           <div className={styles.actionRow}>
-            <button className="btn-primary" onClick={handleSave}>Salvar Palpite</button>
+            <button className="btn-primary" onClick={handleSave}>Save Prediction</button>
           </div>
         </div>
       </section>
