@@ -72,12 +72,17 @@ export default function Home() {
           {session ? (
             <>
               <button className="btn-primary" onClick={() => router.push('/predictions')}>My Predictions</button>
+              <button className="btn-secondary" onClick={() => router.push('/results')}>Results</button>
+              {session.user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
+                <button className="btn-secondary" onClick={() => router.push('/admin')} style={{ borderColor: 'var(--primary-color)', color: 'var(--primary-color)' }}>Admin</button>
+              )}
               <button className="btn-secondary" onClick={handleLogout}>Log Out</button>
             </>
           ) : (
             <>
               <button className="btn-primary" onClick={() => router.push('/login?mode=login')}>Login</button>
               <button className="btn-secondary" onClick={() => router.push('/login?mode=signup')}>Sign Up</button>
+              <button className="btn-secondary" onClick={() => router.push('/results')}>Results</button>
             </>
           )}
         </div>

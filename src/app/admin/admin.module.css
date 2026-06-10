@@ -1,0 +1,191 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+.matchList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.matchCard {
+  padding: 1rem;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.matchDate {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.teamsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.flag {
+  width: 60px;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.teamName {
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.vs {
+  font-weight: 800;
+  color: var(--text-muted);
+  margin: 0 16px;
+  font-size: 1.2rem;
+}
+
+.scoreControl {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.scoreInput {
+  width: 48px;
+  height: 40px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: transparent;
+  border: none;
+  color: #fff;
+  outline: none;
+}
+
+.scoreInput:focus {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.scoreBtn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.scoreBtn:hover:not(:disabled) {
+  background: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.scoreBtn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.scoreBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.scrollButtons {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 100;
+}
+
+.scrollBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: var(--primary-color);
+  color: #000;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.scrollBtn:hover {
+  transform: scale(1.1);
+  background: #ff6b6b;
+}
+
+.actionRow {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.saveBtn {
+  width: 100%;
+  max-width: 400px;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .teamName {
+    font-size: 0.9rem;
+  }
+  .flag {
+    width: 40px;
+  }
+  .scoreInput {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+}

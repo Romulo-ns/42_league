@@ -114,7 +114,7 @@
 
 .pointsBadge {
   background: var(--primary-color);
-  color: #fff;
+  color: #000;
   font-weight: 800;
   font-size: 0.9rem;
   padding: 6px 12px;
@@ -368,7 +368,7 @@
 
 .tabBtn.activeTab {
   background: var(--primary-color);
-  color: #fff;
+  color: #000;
   box-shadow: 0 4px 15px var(--primary-glow);
 }
 
