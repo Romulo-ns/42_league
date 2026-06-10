@@ -1,4 +1,4 @@
-const groupTeams = {
+export const groupTeams = {
   A: [{name: "Mexico", flag: "mx"}, {name: "South Africa", flag: "za"}, {name: "South Korea", flag: "kr"}, {name: "Czechia", flag: "cz"}],
   B: [{name: "Canada", flag: "ca"}, {name: "Bosnia & Herz.", flag: "ba"}, {name: "Qatar", flag: "qa"}, {name: "Switzerland", flag: "ch"}],
   C: [{name: "Brazil", flag: "br"}, {name: "Morocco", flag: "ma"}, {name: "Haiti", flag: "ht"}, {name: "Scotland", flag: "gb-sct"}],

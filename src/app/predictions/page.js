@@ -30,10 +30,20 @@ export default function Predictions() {
       setUser(session.user);
       
       // Fetch predictions saved in the database
-      const { data: predictions, error } = await supabase
+      const { data: predictions } = await supabase
         .from('predictions')
         .select('*')
         .eq('user_id', session.user.id);
+        
+      // Fetch official scores
+      const { data: officialScores } = await supabase
+        .from('official_matches')
+        .select('*');
+        
+      // Fetch knockout teams
+      const { data: knockoutTeams } = await supabase
+        .from('knockout_teams')
+        .select('*');
         
       // Fetch nickname if it exists
       const { data: profile } = await supabase
@@ -46,20 +56,30 @@ export default function Predictions() {
         setNickname(profile.nickname);
       }
       
-      if (!error && predictions && predictions.length > 0) {
-        // Update 'games' state with values from the database
-        setGames(prevGames => prevGames.map(game => {
-          const savedPrediction = predictions.find(p => p.match_id === game.id);
-          if (savedPrediction) {
-            return {
-              ...game,
-              homeScore: String(savedPrediction.home_score),
-              awayScore: String(savedPrediction.away_score)
-            };
-          }
-          return game;
-        }));
-      }
+      // Update 'games' state with values from the database
+      setGames(prevGames => prevGames.map(game => {
+        const savedPrediction = predictions?.find(p => p.match_id === game.id);
+        const savedOfficial = officialScores?.find(o => o.match_id === game.id);
+        const savedKnockout = knockoutTeams?.find(k => k.match_id === game.id);
+        
+        let updatedGame = {
+          ...game,
+          homeScore: savedPrediction ? String(savedPrediction.home_score) : game.homeScore,
+          awayScore: savedPrediction ? String(savedPrediction.away_score) : game.awayScore,
+          officialHome: savedOfficial ? savedOfficial.home_score : undefined,
+          officialAway: savedOfficial ? savedOfficial.away_score : undefined
+        };
+        
+        if (savedKnockout) {
+          updatedGame.homeTeam = savedKnockout.home_team;
+          updatedGame.homeFlag = savedKnockout.home_flag;
+          updatedGame.awayTeam = savedKnockout.away_team;
+          updatedGame.awayFlag = savedKnockout.away_flag;
+        }
+        
+        return updatedGame;
+      }));
+
       setIsLoading(false);
     };
 
@@ -291,7 +311,14 @@ export default function Predictions() {
                         </div>
                       </div>
                       
-                      <span className={styles.vs}>VS</span>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 16px' }}>
+                        <span className={styles.vs}>VS</span>
+                        {isLocked && game.officialHome !== undefined && (
+                          <div style={{ background: 'var(--primary-color)', color: '#fff', padding: '2px 8px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 'bold', marginTop: '4px', whiteSpace: 'nowrap' }}>
+                            Official: {game.officialHome} - {game.officialAway}
+                          </div>
+                        )}
+                      </div>
 
                       <div className={styles.team}>
                         <img src={`https://flagcdn.com/w80/${game.awayFlag}.png`} alt={game.awayTeam} className={styles.flag} />
@@ -382,7 +409,14 @@ export default function Predictions() {
                         </div>
                       </div>
 
-                      <span className={styles.vs}>VS</span>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 16px' }}>
+                        <span className={styles.vs}>VS</span>
+                        {isLocked && game.officialHome !== undefined && (
+                          <div style={{ background: 'var(--primary-color)', color: '#fff', padding: '2px 8px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 'bold', marginTop: '4px', whiteSpace: 'nowrap' }}>
+                            Official: {game.officialHome} - {game.officialAway}
+                          </div>
+                        )}
+                      </div>
 
                       <div className={styles.team}>
                         {game.awayFlag !== "un" && <img src={`https://flagcdn.com/w80/${game.awayFlag}.png`} alt={game.awayTeam} className={styles.flag} />}
