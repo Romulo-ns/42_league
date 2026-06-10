@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./jogos.module.css";
 import Link from "next/link";
+import { supabase } from "@/lib/supabase";
+import { useRouter } from "next/navigation";
 
 export default function Jogos() {
   // Using ISO 8601 Strings with "Z" to denote UTC time. 
@@ -35,6 +37,48 @@ export default function Jogos() {
   ];
 
   const [games, setGames] = useState(initialGames);
+  const [user, setUser] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchSessionAndData = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        // Redireciona se não estiver logado
+        router.push('/login');
+        return;
+      }
+      
+      setUser(session.user);
+      
+      // Busca os palpites salvos no banco
+      const { data: predictions, error } = await supabase
+        .from('predictions')
+        .select('*')
+        .eq('user_id', session.user.id);
+        
+      if (!error && predictions && predictions.length > 0) {
+        // Atualiza o state 'games' com os valores vindos do banco
+        setGames(prevGames => prevGames.map(game => {
+          const savedPrediction = predictions.find(p => p.match_id === game.id);
+          if (savedPrediction) {
+            return {
+              ...game,
+              homeScore: String(savedPrediction.home_score),
+              awayScore: String(savedPrediction.away_score)
+            };
+          }
+          return game;
+        }));
+      }
+      setIsLoading(false);
+    };
+
+    fetchSessionAndData();
+  }, [router]);
 
   const handleScoreChange = (id, team, value) => {
     // Só aceita até 2 digitos numéricos
@@ -65,8 +109,55 @@ export default function Jogos() {
     }
   };
 
-  const handleSave = () => {
-    alert(`Predictions Saved successfully!`);
+  const handleSave = async () => {
+    if (!user) return;
+    setIsSaving(true);
+    
+    // Pega todos os jogos que têm pelo menos um lado preenchido
+    const partiallyOrFullyFilled = games.filter(g => g.homeScore !== "" || g.awayScore !== "");
+    
+    if (partiallyOrFullyFilled.length === 0) {
+      alert("Por favor, preencha pelo menos um palpite antes de salvar.");
+      setIsSaving(false);
+      return;
+    }
+
+    // Monta o payload assumindo "0" para campos vazios caso o outro lado esteja preenchido
+    const payload = partiallyOrFullyFilled.map(g => {
+      const hScore = g.homeScore === "" ? 0 : parseInt(g.homeScore);
+      const aScore = g.awayScore === "" ? 0 : parseInt(g.awayScore);
+      
+      return {
+        user_id: user.id,
+        match_id: g.id,
+        home_score: hScore,
+        away_score: aScore,
+        updated_at: new Date().toISOString()
+      };
+    });
+
+    // Usa o upsert com onConflict baseado na restrição única (user_id, match_id).
+    // IMPORTANTE: Não deve haver espaços na string 'user_id,match_id'.
+    const { error } = await supabase
+      .from('predictions')
+      .upsert(payload, { onConflict: 'user_id,match_id' });
+      
+    setIsSaving(false);
+    
+    if (error) {
+      console.error("Upsert Error:", error);
+      alert(`Erro ao salvar: ${error.message || 'Verifique o console'}`);
+    } else {
+      alert("Palpites salvos com sucesso! Boa sorte!");
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const scrollToBottom = () => {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   };
 
   const checkIsLocked = (isoString) => {
@@ -150,7 +241,7 @@ export default function Jogos() {
                 
                 return (
                   <div key={game.id} className={`glass-panel ${styles.matchCard}`}>
-                    <span className={styles.matchDate}>{formatDisplayDate(game.date)}</span>
+                    <span className={styles.matchDate} suppressHydrationWarning>{formatDisplayDate(game.date)}</span>
                     {isLocked && <span className={styles.lockedBadge}>Locked</span>}
                     
                     <div className={styles.teamsRow}>
@@ -228,8 +319,17 @@ export default function Jogos() {
         ))}
 
         <div className={styles.actionRow} style={{ marginTop: "24px" }}>
-          <button className="btn-primary" onClick={handleSave} style={{ width: "100%", fontSize: "1.1rem" }}>
-            Save All Predictions
+          <button className="btn-primary" onClick={handleSave} style={{ width: "100%", fontSize: "1.1rem" }} disabled={isSaving || isLoading}>
+            {isLoading ? "Carregando..." : isSaving ? "Salvando Palpites..." : "Save All Predictions"}
+          </button>
+        </div>
+
+        <div className={styles.scrollButtons}>
+          <button className={styles.scrollBtn} onClick={scrollToTop} aria-label="Scroll to top" title="Ir para o topo">
+            ↑
+          </button>
+          <button className={styles.scrollBtn} onClick={scrollToBottom} aria-label="Scroll to bottom" title="Ir para o final">
+            ↓
           </button>
         </div>
       </section>
