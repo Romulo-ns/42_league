@@ -3,11 +3,11 @@ import styles from "../home.module.css";
 
 export default function Ranking() {
   const mockRanking = [
-    { id: 1, name: "João", points: 245 },
-    { id: 2, name: "Maria", points: 230 },
-    { id: 3, name: "Romulo", points: 220 },
-    { id: 4, name: "Pedro", points: 190 },
-    { id: 5, name: "Ana", points: 185 },
+    { id: 1, name: "João", points: 0 },
+    { id: 2, name: "Maria", points: 0 },
+    { id: 3, name: "Romulo", points: 0 },
+    { id: 4, name: "Pedro", points: 0 },
+    { id: 5, name: "Ana", points: 0 },
   ];
 
   return (

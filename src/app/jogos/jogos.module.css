@@ -19,6 +19,50 @@
   margin-bottom: 8px;
 }
 
+.rulesSection {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.rulesSection h2 {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.rulesTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.rulesTable th, .rulesTable td {
+  padding: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+}
+
+.rulesTable th {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.rulesTable tr:last-child td {
+  border-bottom: none;
+}
+
+.pointsBadge {
+  background: var(--primary-color);
+  color: #0b0f19;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
 .groupSection {
   display: flex;
   flex-direction: column;
@@ -38,6 +82,33 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  position: relative;
+  padding-top: 32px;
+}
+
+.matchDate {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.lockedBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #ff4d4d;
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(255, 77, 77, 0.4);
 }
 
 .teamsRow {
@@ -52,13 +123,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   flex: 1;
 }
 
+.flag {
+  width: 48px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
 .teamName {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 600;
+  text-align: center;
 }
 
 .scoreInput {
@@ -73,12 +153,61 @@
   color: #fff;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   font-family: inherit;
+  -moz-appearance: textfield; /* Firefox */
 }
 
-.scoreInput:focus {
+/* Hide native arrows */
+.scoreInput::-webkit-inner-spin-button,
+.scoreInput::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.scoreInput:focus:not(:disabled) {
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 12px var(--primary-glow);
+}
+
+.scoreInput:disabled {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  border-color: transparent;
+}
+
+.scoreControl {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.scoreBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--card-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding-bottom: 2px; /* Visual alignment for + and - text */
+}
+
+.scoreBtn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: var(--primary-color);
+}
+
+.scoreBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .vs {
@@ -106,6 +235,10 @@
     font-size: 1.5rem;
   }
   .teamName {
-    font-size: 1.1rem;
+    font-size: 1rem;
+  }
+  .flag {
+    width: 36px;
+    height: 24px;
   }
 }

@@ -1,11 +1,37 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
 import styles from "./home.module.css";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
+
   const mockRanking = [
-    { id: 1, name: "João", points: 245 },
-    { id: 2, name: "Maria", points: 230 },
-    { id: 3, name: "Romulo", points: 220 },
+    { id: 1, name: "João", points: 0 },
+    { id: 2, name: "Maria", points: 0 },
+    { id: 3, name: "Romulo", points: 0 },
   ];
 
   return (
@@ -19,8 +45,17 @@ export default function Home() {
           Make your predictions, challenge your friends, and reach the top of the leaderboard!
         </p>
         <div className={styles.actions}>
-          <button className="btn-primary">Login</button>
-          <button className="btn-secondary">Sign Up</button>
+          {session ? (
+            <>
+              <button className="btn-primary" onClick={() => router.push('/jogos')}>My Predictions</button>
+              <button className="btn-secondary" onClick={handleLogout}>Log Out</button>
+            </>
+          ) : (
+            <>
+              <button className="btn-primary" onClick={() => router.push('/login')}>Login</button>
+              <button className="btn-secondary" onClick={() => router.push('/login')}>Sign Up</button>
+            </>
+          )}
         </div>
       </section>
 
