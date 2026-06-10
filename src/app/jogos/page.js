@@ -38,8 +38,10 @@ export default function Jogos() {
 
   const [games, setGames] = useState(initialGames);
   const [user, setUser] = useState(null);
-  const [isSaving, setIsSaving] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [nickname, setNickname] = useState("");
+  const [isSavingNick, setIsSavingNick] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -60,6 +62,17 @@ export default function Jogos() {
         .select('*')
         .eq('user_id', session.user.id);
         
+      // Busca o nickname se existir
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('nickname')
+        .eq('user_id', session.user.id)
+        .single();
+        
+      if (profile) {
+        setNickname(profile.nickname);
+      }
+      
       if (!error && predictions && predictions.length > 0) {
         // Atualiza o state 'games' com os valores vindos do banco
         setGames(prevGames => prevGames.map(game => {
@@ -152,6 +165,23 @@ export default function Jogos() {
     }
   };
 
+  const handleSaveNickname = async () => {
+    if (!nickname.trim()) return;
+    setIsSavingNick(true);
+    
+    const { error } = await supabase
+      .from('profiles')
+      .upsert({ user_id: user.id, nickname: nickname.trim() }, { onConflict: 'user_id' });
+      
+    setIsSavingNick(false);
+    if (error) {
+      console.error(error);
+      alert("Erro ao salvar o Nickname.");
+    } else {
+      alert("Nickname atualizado com sucesso!");
+    }
+  };
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -182,54 +212,37 @@ export default function Jogos() {
       <Link href="/" style={{ color: "var(--text-muted)", marginBottom: "-20px" }}>
         &larr; Back to Home
       </Link>
+      <header className={styles.header}>
+        <h1 className={styles.title}>Group Stage Predictions</h1>
+        <p className={styles.subtitle}>Fill in your scores below. Matches lock at their kickoff times.</p>
+      </header>
 
-      <div className={styles.header}>
-        <h1 className="text-gradient">Group Stage</h1>
-        <p style={{ color: "var(--text-muted)" }}>Predict the exact scores before the match starts!</p>
-      </div>
-
-      <section className={`${styles.rulesSection} glass-panel`}>
-        <h2>Scoring Rules</h2>
-        <table className={styles.rulesTable}>
-          <thead>
-            <tr>
-              <th>Achievement</th>
-              <th style={{ textAlign: "right" }}>Points</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Correct Winner / Draw</td>
-              <td style={{ textAlign: "right" }}><span className={styles.pointsBadge}>3 pts</span></td>
-            </tr>
-            <tr>
-              <td>Correct Goal Difference</td>
-              <td style={{ textAlign: "right" }}><span className={styles.pointsBadge}>5 pts</span></td>
-            </tr>
-            <tr>
-              <td>Exact Score</td>
-              <td style={{ textAlign: "right" }}><span className={styles.pointsBadge}>10 pts</span></td>
-            </tr>
-            <tr>
-              <td>Correct Group Qualifier</td>
-              <td style={{ textAlign: "right" }}><span className={styles.pointsBadge}>15 pts</span></td>
-            </tr>
-            <tr>
-              <td>Correct Semifinalist</td>
-              <td style={{ textAlign: "right" }}><span className={styles.pointsBadge}>20 pts</span></td>
-            </tr>
-            <tr>
-              <td>Correct Finalist</td>
-              <td style={{ textAlign: "right" }}><span className={styles.pointsBadge}>30 pts</span></td>
-            </tr>
-            <tr>
-              <td>Correct Champion</td>
-              <td style={{ textAlign: "right" }}><span className={styles.pointsBadge}>50 pts</span></td>
-            </tr>
-          </tbody>
-        </table>
+      <section className={`glass-panel ${styles.nickBanner}`}>
+        <div className={styles.nickRow}>
+          <label style={{ color: "#fff", fontWeight: "bold" }}>Seu Nickname:</label>
+          <input 
+            type="text" 
+            className={styles.nickInput}
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            placeholder="Ex: Mago das Apostas"
+            maxLength={20}
+          />
+          <button className={`btn-primary ${styles.nickBtn}`} onClick={handleSaveNickname} disabled={isSavingNick || !nickname.trim()}>
+            {isSavingNick ? "Salvando..." : "Salvar Nick"}
+          </button>
+        </div>
       </section>
 
+      <section className={`glass-panel ${styles.rulesBanner}`}>
+        <h3>🏆 Regras de Pontuação</h3>
+        <ul className={styles.rulesList}>
+          <li><span className={styles.pointsBadge}>5 pts</span> <strong>Na Mosca:</strong> Acertou o placar exato (ex: apostou 2x1, deu 2x1).</li>
+          <li><span className={styles.pointsBadge}>3 pts</span> <strong>Vencedor + Saldo:</strong> Acertou quem ganhou e o saldo de gols (ex: apostou 2x0, deu 3x1).</li>
+          <li><span className={styles.pointsBadge}>2 pts</span> <strong>Empate:</strong> Acertou que seria empate, mas errou os gols (ex: apostou 1x1, deu 2x2).</li>
+          <li><span className={styles.pointsBadge}>1 pt</span> <strong>Apenas Vencedor:</strong> Acertou quem ganhou, mas errou o saldo (ex: apostou 1x0, deu 3x0).</li>
+        </ul>
+      </section>
       <section className={styles.groupSection}>
         {["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"].map(group => (
           <div key={group} style={{ marginBottom: "32px" }}>

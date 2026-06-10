@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 export default function Home() {
   const router = useRouter();
   const [session, setSession] = useState(null);
+  const [leaderboard, setLeaderboard] = useState([]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -21,18 +22,26 @@ export default function Home() {
       setSession(session);
     });
 
+    const fetchTopPlayers = async () => {
+      const { data } = await supabase
+        .from('user_scores')
+        .select('*')
+        .order('total_points', { ascending: false })
+        .limit(3);
+        
+      if (data) {
+        setLeaderboard(data);
+      }
+    };
+    
+    fetchTopPlayers();
+
     return () => subscription.unsubscribe();
   }, []);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
   };
-
-  const mockRanking = [
-    { id: 1, name: "João", points: 0 },
-    { id: 2, name: "Maria", points: 0 },
-    { id: 3, name: "Romulo", points: 0 },
-  ];
 
   return (
     <main className={styles.container}>
@@ -68,17 +77,23 @@ export default function Home() {
         </div>
         
         <div className={`${styles.rankingList} glass-panel`}>
-          {mockRanking.map((user, index) => (
-            <div key={user.id} className={styles.rankingItem}>
-              <div className={styles.rankPosInfo}>
-                <span className={styles.rankPos}>
-                  {index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : `${index + 1}.`}
-                </span>
-                <span className={styles.rankName}>{user.name}</span>
-              </div>
-              <span className={styles.rankPoints}>{user.points} pts</span>
+          {leaderboard.length === 0 ? (
+            <div style={{ textAlign: "center", color: "var(--text-muted)", padding: "16px" }}>
+              Ninguém pontuou ainda.
             </div>
-          ))}
+          ) : (
+            leaderboard.map((user, index) => (
+              <div key={user.user_id} className={styles.rankingItem}>
+                <div className={styles.rankPosInfo}>
+                  <span className={styles.rankPos}>
+                    {index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : `${index + 1}.`}
+                  </span>
+                  <span className={styles.rankName}>{user.user_name}</span>
+                </div>
+                <span className={styles.rankPoints}>{user.total_points} pts</span>
+              </div>
+            ))
+          )}
         </div>
       </section>
     </main>

@@ -27,40 +27,101 @@
   margin-bottom: 16px;
 }
 
-.rulesSection h2 {
+.rulesBanner {
+  margin: 0 auto 40px auto;
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 4px solid var(--primary-color);
+  max-width: 800px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.nickBanner {
+  margin: 0 auto 24px auto;
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  max-width: 800px;
+}
+
+.nickRow {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.nickInput {
+  flex: 1;
+  min-width: 200px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.nickInput:focus {
+  border-color: var(--primary-color);
+}
+
+.nickBtn {
+  padding: 10px 20px;
+  font-size: 1rem;
+}
+
+.rulesBanner h3 {
+  margin: 0 0 24px 0;
+  color: #fff;
   font-size: 1.5rem;
-  margin-bottom: 16px;
-  color: var(--primary-color);
   text-align: center;
 }
 
-.rulesTable {
-  width: 100%;
-  border-collapse: collapse;
+.rulesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
 }
 
-.rulesTable th, .rulesTable td {
-  padding: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  text-align: left;
-}
-
-.rulesTable th {
+.rulesList li {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  border-radius: 12px;
   color: var(--text-muted);
-  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  line-height: 1.5;
+  border: 1px solid rgba(255, 255, 255, 0.02);
 }
 
-.rulesTable tr:last-child td {
-  border-bottom: none;
+.rulesList li strong {
+  color: #fff;
+  display: block;
+  margin-bottom: 4px;
+  font-size: 1.05rem;
 }
 
 .pointsBadge {
   background: var(--primary-color);
-  color: #0b0f19;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-weight: 700;
+  color: #fff;
+  font-weight: 800;
   font-size: 0.9rem;
+  padding: 6px 12px;
+  border-radius: 8px;
+  min-width: 55px;
+  text-align: center;
+  box-shadow: 0 4px 10px var(--primary-glow);
 }
 
 .groupSection {
