@@ -6,6 +6,7 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 import allMatches from "@/data/matches";
+import { campuses } from "@/data/campuses";
 
 export default function Predictions() {
   const [games, setGames] = useState(allMatches);
@@ -13,6 +14,7 @@ export default function Predictions() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [nickname, setNickname] = useState("");
+  const [campus, setCampus] = useState("");
   const [isSavingNick, setIsSavingNick] = useState(false);
   const [activeTab, setActiveTab] = useState("groups");
   const router = useRouter();
@@ -45,15 +47,16 @@ export default function Predictions() {
         .from('knockout_teams')
         .select('*');
         
-      // Fetch nickname if it exists
+      // Fetch nickname and campus if they exist
       const { data: profile } = await supabase
         .from('profiles')
-        .select('nickname')
+        .select('nickname, campus')
         .eq('user_id', session.user.id)
         .single();
         
       if (profile) {
-        setNickname(profile.nickname);
+        setNickname(profile.nickname || "");
+        setCampus(profile.campus || "");
       }
       
       // Update 'games' state with values from the database
@@ -158,20 +161,20 @@ export default function Predictions() {
     }
   };
 
-  const handleSaveNickname = async () => {
+  const handleSaveProfile = async () => {
     if (!nickname.trim()) return;
     setIsSavingNick(true);
     
     const { error } = await supabase
       .from('profiles')
-      .upsert({ user_id: user.id, nickname: nickname.trim() }, { onConflict: 'user_id' });
+      .upsert({ user_id: user.id, nickname: nickname.trim(), campus: campus }, { onConflict: 'user_id' });
       
     setIsSavingNick(false);
     if (error) {
       console.error(error);
-      alert("Error saving nickname.");
+      alert("Error saving profile.");
     } else {
-      alert("Nickname updated successfully!");
+      alert("Profile updated successfully!");
     }
   };
 
@@ -222,18 +225,44 @@ export default function Predictions() {
 
       <section className={`glass-panel ${styles.nickBanner}`}>
         <div className={styles.nickRow}>
-          <label style={{ color: "#fff", fontWeight: "bold" }}>Your Nickname:</label>
-          <input 
-            type="text" 
-            className={styles.nickInput}
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-            placeholder="e.g., Prediction Master"
-            maxLength={20}
-          />
-          <button className={`btn-primary ${styles.nickBtn}`} onClick={handleSaveNickname} disabled={isSavingNick || !nickname.trim()}>
-            {isSavingNick ? "Saving..." : "Save Nickname"}
-          </button>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1 }}>
+            <label style={{ color: "#fff", fontWeight: "bold", fontSize: '0.9rem' }}>Your Nickname:</label>
+            <input 
+              type="text" 
+              className={styles.nickInput}
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              placeholder="e.g., Prediction Master"
+              maxLength={20}
+            />
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1 }}>
+            <label style={{ color: "#fff", fontWeight: "bold", fontSize: '0.9rem' }}>Your Campus:</label>
+            <select
+              className={styles.campusSelect}
+              value={campus}
+              onChange={(e) => setCampus(e.target.value)}
+            >
+              <option value="">Select a campus (optional)</option>
+              {campuses.map((cGroup, i) => (
+                <optgroup key={i} label={cGroup.region}>
+                  {cGroup.names.map((cName, j) => (
+                    <option key={j} value={cName}>{cName}</option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'flex-end', height: '100%' }}>
+            <button 
+              className={`btn-primary ${styles.nickBtn}`} 
+              onClick={handleSaveProfile} 
+              disabled={isSavingNick || !nickname.trim()}
+              style={{ marginTop: '22px' }}
+            >
+              {isSavingNick ? "Saving..." : "Save Profile"}
+            </button>
+          </div>
         </div>
       </section>
 

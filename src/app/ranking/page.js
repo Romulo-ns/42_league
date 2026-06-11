@@ -11,16 +11,33 @@ export default function Ranking() {
 
   useEffect(() => {
     const fetchRanking = async () => {
-      // Query the user_scores view we created in Supabase
-      const { data, error } = await supabase
+      // Query the user_scores view
+      const { data: scoresData, error: scoresError } = await supabase
         .from('user_scores')
         .select('*')
         .order('total_points', { ascending: false });
 
-      if (error) {
-        console.error("Error fetching leaderboard:", error);
-      } else if (data) {
-        setLeaderboard(data);
+      if (scoresError) {
+        console.error("Error fetching leaderboard:", scoresError);
+      } else if (scoresData) {
+        // Fetch profiles to get the campus
+        const { data: profilesData, error: profilesError } = await supabase
+          .from('profiles')
+          .select('user_id, campus');
+          
+        if (!profilesError && profilesData) {
+          // Merge campus into scores
+          const enrichedLeaderboard = scoresData.map(score => {
+            const profile = profilesData.find(p => p.user_id === score.user_id);
+            return {
+              ...score,
+              campus: profile?.campus || null
+            };
+          });
+          setLeaderboard(enrichedLeaderboard);
+        } else {
+          setLeaderboard(scoresData);
+        }
       }
       setIsLoading(false);
     };
@@ -72,6 +89,7 @@ export default function Ranking() {
                 <div className={`${styles.podiumItem} ${styles.silver}`}>
                   <div className={styles.podiumAvatar}>{getInitials(top3[1].user_name)}</div>
                   <div className={styles.podiumName}>{top3[1].user_name}</div>
+                  {top3[1].campus && <div style={{ fontSize: '0.75rem', opacity: 0.8, marginBottom: '4px', textAlign: 'center' }}>{top3[1].campus}</div>}
                   <div className={styles.podiumPoints}>{top3[1].total_points} pts</div>
                   <div className={styles.podiumBlock}>2</div>
                 </div>
@@ -82,6 +100,7 @@ export default function Ranking() {
                 <div className={`${styles.podiumItem} ${styles.gold}`}>
                   <div className={styles.podiumAvatar}>{getInitials(top3[0].user_name)}</div>
                   <div className={styles.podiumName}>{top3[0].user_name}</div>
+                  {top3[0].campus && <div style={{ fontSize: '0.75rem', opacity: 0.8, marginBottom: '4px', textAlign: 'center' }}>{top3[0].campus}</div>}
                   <div className={styles.podiumPoints}>{top3[0].total_points} pts</div>
                   <div className={styles.podiumBlock}>1</div>
                 </div>
@@ -92,6 +111,7 @@ export default function Ranking() {
                 <div className={`${styles.podiumItem} ${styles.bronze}`}>
                   <div className={styles.podiumAvatar}>{getInitials(top3[2].user_name)}</div>
                   <div className={styles.podiumName}>{top3[2].user_name}</div>
+                  {top3[2].campus && <div style={{ fontSize: '0.75rem', opacity: 0.8, marginBottom: '4px', textAlign: 'center' }}>{top3[2].campus}</div>}
                   <div className={styles.podiumPoints}>{top3[2].total_points} pts</div>
                   <div className={styles.podiumBlock}>3</div>
                 </div>
@@ -107,7 +127,10 @@ export default function Ranking() {
                   <div className={styles.position}>{index + 4}</div>
                   <div className={styles.userInfo}>
                     <div className={styles.avatar}>{getInitials(user.user_name)}</div>
-                    <div className={styles.userName}>{user.user_name}</div>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <div className={styles.userName}>{user.user_name}</div>
+                      {user.campus && <div style={{ fontSize: '0.75rem', opacity: 0.8, marginTop: '2px', color: 'var(--text-muted)' }}>{user.campus}</div>}
+                    </div>
                   </div>
                   <div className={styles.points}>
                     {user.total_points} <span className={styles.ptsLabel}>pts</span>
