@@ -29,6 +29,7 @@ export default function Home() {
         .from('user_scores')
         .select('*')
         .order('total_points', { ascending: false })
+        .order('user_name', { ascending: true })
         .limit(3);
         
       if (data) {

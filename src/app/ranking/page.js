@@ -15,7 +15,8 @@ export default function Ranking() {
       const { data: scoresData, error: scoresError } = await supabase
         .from('user_scores')
         .select('*')
-        .order('total_points', { ascending: false });
+        .order('total_points', { ascending: false })
+        .order('user_name', { ascending: true });
 
       if (scoresError) {
         console.error("Error fetching leaderboard:", scoresError);
@@ -127,9 +128,9 @@ export default function Ranking() {
                   <div className={styles.position}>{index + 4}</div>
                   <div className={styles.userInfo}>
                     <div className={styles.avatar}>{getInitials(user.user_name)}</div>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
                       <div className={styles.userName}>{user.user_name}</div>
-                      {user.campus && <div style={{ fontSize: '0.75rem', opacity: 0.8, marginTop: '2px', color: 'var(--text-muted)' }}>{user.campus}</div>}
+                      {user.campus && <div style={{ fontSize: '0.75rem', opacity: 0.8, marginTop: '2px', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user.campus}</div>}
                     </div>
                   </div>
                   <div className={styles.points}>
