@@ -1,84 +1,84 @@
 export const campuses = [
   {
-    region: "Europa - Portugal",
+    region: "Europe - Portugal",
     names: ["42 Lisboa", "42 Porto"]
   },
   {
-    region: "Europa - Espanha",
+    region: "Europe - Spain",
     names: ["42 Barcelona", "42 Madrid", "42 Málaga", "42 Urduliz"]
   },
   {
-    region: "Europa - França",
+    region: "Europe - France",
     names: ["42 Paris", "42 Angoulême", "42 Le Havre", "42 Lyon", "42 Marseille", "42 Mulhouse", "42 Nice", "42 Perpignan"]
   },
   {
-    region: "Europa - Alemanha",
-    names: ["42 Berlim", "42 Heilbronn", "42 Wolfsburg"]
+    region: "Europe - Germany",
+    names: ["42 Berlin", "42 Heilbronn", "42 Wolfsburg"]
   },
   {
-    region: "Europa - Áustria",
-    names: ["42 Viena", "42 Wels"]
+    region: "Europe - Austria",
+    names: ["42 Vienna", "42 Wels"]
   },
   {
-    region: "Europa - Bélgica",
-    names: ["42 Antuérpia", "42 Bruxelas"]
+    region: "Europe - Belgium",
+    names: ["42 Antwerp", "42 Brussels"]
   },
   {
-    region: "Europa - Itália",
-    names: ["42 Florença", "42 Milão", "42 Roma"]
+    region: "Europe - Italy",
+    names: ["42 Florence", "42 Milan", "42 Rome"]
   },
   {
-    region: "Europa - Suíça",
-    names: ["42 Lausanne", "42 Zurique"]
+    region: "Europe - Switzerland",
+    names: ["42 Lausanne", "42 Zurich"]
   },
   {
-    region: "Europa - Outros",
+    region: "Europe - Others",
     names: [
-      "Codam Amesterdão (Países Baixos)", 
-      "42 Tirana (Albânia)", 
-      "42 Luxemburgo", 
-      "42 Varsóvia (Polónia)", 
-      "42 Praga (República Checa)", 
-      "42 Londres (Reino Unido)"
+      "Codam Amsterdam (Netherlands)", 
+      "42 Tirana (Albania)", 
+      "42 Luxembourg", 
+      "42 Warsaw (Poland)", 
+      "42 Prague (Czech Republic)", 
+      "42 London (United Kingdom)"
     ]
   },
   {
-    region: "Américas - Brasil",
+    region: "Americas - Brazil",
     names: ["42 Belo Horizonte", "42 Rio de Janeiro", "42 São Paulo"]
   },
   {
-    region: "Américas - Canadá",
+    region: "Americas - Canada",
     names: ["42 Québec"]
   },
   {
-    region: "Ásia e Médio Oriente - Coreia do Sul",
-    names: ["42 Seul", "42 Gyeongsan"]
+    region: "Asia & Middle East - South Korea",
+    names: ["42 Seoul", "42 Gyeongsan"]
   },
   {
-    region: "Ásia e Médio Oriente - Malásia",
+    region: "Asia & Middle East - Malaysia",
     names: ["42 Iskandar Puteri", "42 Kuala Lumpur", "42 Penang"]
   },
   {
-    region: "Ásia e Médio Oriente - EAU",
+    region: "Asia & Middle East - UAE",
     names: ["42 Abu Dhabi"]
   },
   {
-    region: "Ásia e Médio Oriente - Jordânia",
-    names: ["42 Amã", "42 Irbid"]
+    region: "Asia & Middle East - Jordan",
+    names: ["42 Amman", "42 Irbid"]
   },
   {
-    region: "Ásia e Médio Oriente - Outros",
+    region: "Asia & Middle East - Others",
     names: [
-      "42 Banguecoque (Tailândia)", 
-      "42 Beirute (Líbano)", 
-      "42 Nablus (Palestina)", 
-      "42 Singapura", 
-      "42 Tóquio (Japão)", 
-      "42 Erevan (Arménia)"
+      "42 Bangkok (Thailand)", 
+      "42 Beirut (Lebanon)", 
+      "42 Nablus (Palestine)", 
+      "42 Singapore", 
+      "42 Tokyo (Japan)", 
+      "42 Yerevan (Armenia)"
     ]
   },
   {
-    region: "África - Marrocos",
+    region: "Africa - Morocco",
     names: [
       "1337 Ben Guérir", 
       "1337 Khouribga", 
@@ -87,7 +87,7 @@ export const campuses = [
     ]
   },
   {
-    region: "África - Outros",
+    region: "Africa - Others",
     names: ["42 Antananarivo (Madagascar)", "42 Luanda (Angola)"]
   }
 ];
