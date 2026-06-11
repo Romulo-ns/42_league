@@ -163,6 +163,10 @@ export default function Predictions() {
 
   const handleSaveProfile = async () => {
     if (!nickname.trim()) return;
+    if (nickname.trim().length > 20) {
+      alert("Nickname cannot exceed 20 characters.");
+      return;
+    }
     setIsSavingNick(true);
     
     const { error } = await supabase
