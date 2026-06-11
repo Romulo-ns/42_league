@@ -1,25 +1,25 @@
 export const groupTeams = {
   "A": [
     {
-      "name": "México",
+      "name": "Mexico",
       "flag": "mx"
     },
     {
-      "name": "África do Sul",
+      "name": "South Africa",
       "flag": "za"
     },
     {
-      "name": "Coreia do Sul",
+      "name": "South Korea",
       "flag": "kr"
     },
     {
-      "name": "Tchéquia",
+      "name": "Czechia",
       "flag": "cz"
     }
   ],
   "B": [
     {
-      "name": "Canadá",
+      "name": "Canada",
       "flag": "ca"
     },
     {
@@ -27,21 +27,21 @@ export const groupTeams = {
       "flag": "un"
     },
     {
-      "name": "Catar",
+      "name": "Qatar",
       "flag": "qa"
     },
     {
-      "name": "Suíça",
+      "name": "Switzerland",
       "flag": "ch"
     }
   ],
   "C": [
     {
-      "name": "Brasil",
+      "name": "Brazil",
       "flag": "br"
     },
     {
-      "name": "Marrocos",
+      "name": "Morocco",
       "flag": "ma"
     },
     {
@@ -49,31 +49,31 @@ export const groupTeams = {
       "flag": "ht"
     },
     {
-      "name": "Escócia",
+      "name": "Scotland",
       "flag": "gb-sct"
     }
   ],
   "D": [
     {
-      "name": "Estados Unidos",
+      "name": "United States",
       "flag": "us"
     },
     {
-      "name": "Paraguai",
+      "name": "Paraguay",
       "flag": "py"
     },
     {
-      "name": "Austrália",
+      "name": "Australia",
       "flag": "au"
     },
     {
-      "name": "Turquia",
+      "name": "Turkey",
       "flag": "tr"
     }
   ],
   "E": [
     {
-      "name": "Alemanha",
+      "name": "Germany",
       "flag": "de"
     },
     {
@@ -81,71 +81,71 @@ export const groupTeams = {
       "flag": "cw"
     },
     {
-      "name": "Costa do Marfim",
+      "name": "Ivory Coast",
       "flag": "ci"
     },
     {
-      "name": "Equador",
+      "name": "Ecuador",
       "flag": "ec"
     }
   ],
   "F": [
     {
-      "name": "Holanda",
+      "name": "Netherlands",
       "flag": "nl"
     },
     {
-      "name": "Japão",
+      "name": "Japan",
       "flag": "jp"
     },
     {
-      "name": "Suécia",
+      "name": "Sweden",
       "flag": "se"
     },
     {
-      "name": "Tunísia",
+      "name": "Tunisia",
       "flag": "tn"
     }
   ],
   "G": [
     {
-      "name": "Bélgica",
+      "name": "Belgium",
       "flag": "be"
     },
     {
-      "name": "Egito",
+      "name": "Egypt",
       "flag": "eg"
     },
     {
-      "name": "Irão",
+      "name": "Iran",
       "flag": "ir"
     },
     {
-      "name": "Nova Zelândia",
+      "name": "New Zealand",
       "flag": "nz"
     }
   ],
   "H": [
     {
-      "name": "Espanha",
+      "name": "Spain",
       "flag": "es"
     },
     {
-      "name": "Cabo Verde",
+      "name": "Cape Verde",
       "flag": "cv"
     },
     {
-      "name": "Arábia Saudita",
+      "name": "Saudi Arabia",
       "flag": "sa"
     },
     {
-      "name": "Uruguai",
+      "name": "Uruguay",
       "flag": "uy"
     }
   ],
   "I": [
     {
-      "name": "França",
+      "name": "France",
       "flag": "fr"
     },
     {
@@ -153,11 +153,11 @@ export const groupTeams = {
       "flag": "sn"
     },
     {
-      "name": "Iraque",
+      "name": "Iraq",
       "flag": "iq"
     },
     {
-      "name": "Noruega",
+      "name": "Norway",
       "flag": "no"
     }
   ],
@@ -167,15 +167,15 @@ export const groupTeams = {
       "flag": "ar"
     },
     {
-      "name": "Argélia",
+      "name": "Algeria",
       "flag": "dz"
     },
     {
-      "name": "Áustria",
+      "name": "Austria",
       "flag": "at"
     },
     {
-      "name": "Jordânia",
+      "name": "Jordan",
       "flag": "jo"
     }
   ],
@@ -185,33 +185,33 @@ export const groupTeams = {
       "flag": "pt"
     },
     {
-      "name": "RD Congo",
+      "name": "DR Congo",
       "flag": "cd"
     },
     {
-      "name": "Uzbequistão",
+      "name": "Uzbekistan",
       "flag": "uz"
     },
     {
-      "name": "Colômbia",
+      "name": "Colombia",
       "flag": "co"
     }
   ],
   "L": [
     {
-      "name": "Inglaterra",
+      "name": "England",
       "flag": "gb-eng"
     },
     {
-      "name": "Croácia",
+      "name": "Croatia",
       "flag": "hr"
     },
     {
-      "name": "Gana",
+      "name": "Ghana",
       "flag": "gh"
     },
     {
-      "name": "Panamá",
+      "name": "Panama",
       "flag": "pa"
     }
   ]
@@ -223,9 +223,9 @@ const matches = [
     "phase": "groups",
     "group": "A",
     "date": "2026-06-11T19:00:00.000Z",
-    "homeTeam": "México",
+    "homeTeam": "Mexico",
     "homeFlag": "mx",
-    "awayTeam": "África do Sul",
+    "awayTeam": "South Africa",
     "awayFlag": "za",
     "homeScore": "",
     "awayScore": ""
@@ -235,9 +235,9 @@ const matches = [
     "phase": "groups",
     "group": "A",
     "date": "2026-06-12T02:00:00.000Z",
-    "homeTeam": "Coreia do Sul",
+    "homeTeam": "South Korea",
     "homeFlag": "kr",
-    "awayTeam": "Tchéquia",
+    "awayTeam": "Czechia",
     "awayFlag": "cz",
     "homeScore": "",
     "awayScore": ""
@@ -247,7 +247,7 @@ const matches = [
     "phase": "groups",
     "group": "B",
     "date": "2026-06-12T19:00:00.000Z",
-    "homeTeam": "Canadá",
+    "homeTeam": "Canada",
     "homeFlag": "ca",
     "awayTeam": "Bósnia e Herzegovina",
     "awayFlag": "un",
@@ -259,9 +259,9 @@ const matches = [
     "phase": "groups",
     "group": "D",
     "date": "2026-06-13T01:00:00.000Z",
-    "homeTeam": "Estados Unidos",
+    "homeTeam": "United States",
     "homeFlag": "us",
-    "awayTeam": "Paraguai",
+    "awayTeam": "Paraguay",
     "awayFlag": "py",
     "homeScore": "",
     "awayScore": ""
@@ -271,9 +271,9 @@ const matches = [
     "phase": "groups",
     "group": "B",
     "date": "2026-06-13T19:00:00.000Z",
-    "homeTeam": "Catar",
+    "homeTeam": "Qatar",
     "homeFlag": "qa",
-    "awayTeam": "Suíça",
+    "awayTeam": "Switzerland",
     "awayFlag": "ch",
     "homeScore": "",
     "awayScore": ""
@@ -283,9 +283,9 @@ const matches = [
     "phase": "groups",
     "group": "C",
     "date": "2026-06-13T22:00:00.000Z",
-    "homeTeam": "Brasil",
+    "homeTeam": "Brazil",
     "homeFlag": "br",
-    "awayTeam": "Marrocos",
+    "awayTeam": "Morocco",
     "awayFlag": "ma",
     "homeScore": "",
     "awayScore": ""
@@ -297,7 +297,7 @@ const matches = [
     "date": "2026-06-14T01:00:00.000Z",
     "homeTeam": "Haiti",
     "homeFlag": "ht",
-    "awayTeam": "Escócia",
+    "awayTeam": "Scotland",
     "awayFlag": "gb-sct",
     "homeScore": "",
     "awayScore": ""
@@ -307,9 +307,9 @@ const matches = [
     "phase": "groups",
     "group": "D",
     "date": "2026-06-14T04:00:00.000Z",
-    "homeTeam": "Austrália",
+    "homeTeam": "Australia",
     "homeFlag": "au",
-    "awayTeam": "Turquia",
+    "awayTeam": "Turkey",
     "awayFlag": "tr",
     "homeScore": "",
     "awayScore": ""
@@ -319,7 +319,7 @@ const matches = [
     "phase": "groups",
     "group": "E",
     "date": "2026-06-14T17:00:00.000Z",
-    "homeTeam": "Alemanha",
+    "homeTeam": "Germany",
     "homeFlag": "de",
     "awayTeam": "Curaçao",
     "awayFlag": "cw",
@@ -331,9 +331,9 @@ const matches = [
     "phase": "groups",
     "group": "F",
     "date": "2026-06-14T20:00:00.000Z",
-    "homeTeam": "Holanda",
+    "homeTeam": "Netherlands",
     "homeFlag": "nl",
-    "awayTeam": "Japão",
+    "awayTeam": "Japan",
     "awayFlag": "jp",
     "homeScore": "",
     "awayScore": ""
@@ -343,9 +343,9 @@ const matches = [
     "phase": "groups",
     "group": "E",
     "date": "2026-06-14T23:00:00.000Z",
-    "homeTeam": "Costa do Marfim",
+    "homeTeam": "Ivory Coast",
     "homeFlag": "ci",
-    "awayTeam": "Equador",
+    "awayTeam": "Ecuador",
     "awayFlag": "ec",
     "homeScore": "",
     "awayScore": ""
@@ -355,9 +355,9 @@ const matches = [
     "phase": "groups",
     "group": "F",
     "date": "2026-06-15T02:00:00.000Z",
-    "homeTeam": "Suécia",
+    "homeTeam": "Sweden",
     "homeFlag": "se",
-    "awayTeam": "Tunísia",
+    "awayTeam": "Tunisia",
     "awayFlag": "tn",
     "homeScore": "",
     "awayScore": ""
@@ -367,9 +367,9 @@ const matches = [
     "phase": "groups",
     "group": "H",
     "date": "2026-06-15T16:00:00.000Z",
-    "homeTeam": "Espanha",
+    "homeTeam": "Spain",
     "homeFlag": "es",
-    "awayTeam": "Cabo Verde",
+    "awayTeam": "Cape Verde",
     "awayFlag": "cv",
     "homeScore": "",
     "awayScore": ""
@@ -379,9 +379,9 @@ const matches = [
     "phase": "groups",
     "group": "G",
     "date": "2026-06-15T19:00:00.000Z",
-    "homeTeam": "Bélgica",
+    "homeTeam": "Belgium",
     "homeFlag": "be",
-    "awayTeam": "Egito",
+    "awayTeam": "Egypt",
     "awayFlag": "eg",
     "homeScore": "",
     "awayScore": ""
@@ -391,9 +391,9 @@ const matches = [
     "phase": "groups",
     "group": "H",
     "date": "2026-06-15T22:00:00.000Z",
-    "homeTeam": "Arábia Saudita",
+    "homeTeam": "Saudi Arabia",
     "homeFlag": "sa",
-    "awayTeam": "Uruguai",
+    "awayTeam": "Uruguay",
     "awayFlag": "uy",
     "homeScore": "",
     "awayScore": ""
@@ -403,9 +403,9 @@ const matches = [
     "phase": "groups",
     "group": "G",
     "date": "2026-06-16T01:00:00.000Z",
-    "homeTeam": "Irão",
+    "homeTeam": "Iran",
     "homeFlag": "ir",
-    "awayTeam": "Nova Zelândia",
+    "awayTeam": "New Zealand",
     "awayFlag": "nz",
     "homeScore": "",
     "awayScore": ""
@@ -415,7 +415,7 @@ const matches = [
     "phase": "groups",
     "group": "I",
     "date": "2026-06-16T19:00:00.000Z",
-    "homeTeam": "França",
+    "homeTeam": "France",
     "homeFlag": "fr",
     "awayTeam": "Senegal",
     "awayFlag": "sn",
@@ -427,9 +427,9 @@ const matches = [
     "phase": "groups",
     "group": "I",
     "date": "2026-06-16T22:00:00.000Z",
-    "homeTeam": "Iraque",
+    "homeTeam": "Iraq",
     "homeFlag": "iq",
-    "awayTeam": "Noruega",
+    "awayTeam": "Norway",
     "awayFlag": "no",
     "homeScore": "",
     "awayScore": ""
@@ -441,7 +441,7 @@ const matches = [
     "date": "2026-06-17T01:00:00.000Z",
     "homeTeam": "Argentina",
     "homeFlag": "ar",
-    "awayTeam": "Argélia",
+    "awayTeam": "Algeria",
     "awayFlag": "dz",
     "homeScore": "",
     "awayScore": ""
@@ -451,9 +451,9 @@ const matches = [
     "phase": "groups",
     "group": "J",
     "date": "2026-06-17T04:00:00.000Z",
-    "homeTeam": "Áustria",
+    "homeTeam": "Austria",
     "homeFlag": "at",
-    "awayTeam": "Jordânia",
+    "awayTeam": "Jordan",
     "awayFlag": "jo",
     "homeScore": "",
     "awayScore": ""
@@ -465,7 +465,7 @@ const matches = [
     "date": "2026-06-17T17:00:00.000Z",
     "homeTeam": "Portugal",
     "homeFlag": "pt",
-    "awayTeam": "RD Congo",
+    "awayTeam": "DR Congo",
     "awayFlag": "cd",
     "homeScore": "",
     "awayScore": ""
@@ -475,9 +475,9 @@ const matches = [
     "phase": "groups",
     "group": "L",
     "date": "2026-06-17T20:00:00.000Z",
-    "homeTeam": "Inglaterra",
+    "homeTeam": "England",
     "homeFlag": "gb-eng",
-    "awayTeam": "Croácia",
+    "awayTeam": "Croatia",
     "awayFlag": "hr",
     "homeScore": "",
     "awayScore": ""
@@ -487,9 +487,9 @@ const matches = [
     "phase": "groups",
     "group": "L",
     "date": "2026-06-17T23:00:00.000Z",
-    "homeTeam": "Gana",
+    "homeTeam": "Ghana",
     "homeFlag": "gh",
-    "awayTeam": "Panamá",
+    "awayTeam": "Panama",
     "awayFlag": "pa",
     "homeScore": "",
     "awayScore": ""
@@ -499,9 +499,9 @@ const matches = [
     "phase": "groups",
     "group": "K",
     "date": "2026-06-18T02:00:00.000Z",
-    "homeTeam": "Uzbequistão",
+    "homeTeam": "Uzbekistan",
     "homeFlag": "uz",
-    "awayTeam": "Colômbia",
+    "awayTeam": "Colombia",
     "awayFlag": "co",
     "homeScore": "",
     "awayScore": ""
@@ -511,9 +511,9 @@ const matches = [
     "phase": "groups",
     "group": "A",
     "date": "2026-06-18T16:00:00.000Z",
-    "homeTeam": "Tchéquia",
+    "homeTeam": "Czechia",
     "homeFlag": "cz",
-    "awayTeam": "África do Sul",
+    "awayTeam": "South Africa",
     "awayFlag": "za",
     "homeScore": "",
     "awayScore": ""
@@ -523,7 +523,7 @@ const matches = [
     "phase": "groups",
     "group": "B",
     "date": "2026-06-18T19:00:00.000Z",
-    "homeTeam": "Suíça",
+    "homeTeam": "Switzerland",
     "homeFlag": "ch",
     "awayTeam": "Bósnia e Herzegovina",
     "awayFlag": "un",
@@ -535,9 +535,9 @@ const matches = [
     "phase": "groups",
     "group": "B",
     "date": "2026-06-18T22:00:00.000Z",
-    "homeTeam": "Canadá",
+    "homeTeam": "Canada",
     "homeFlag": "ca",
-    "awayTeam": "Catar",
+    "awayTeam": "Qatar",
     "awayFlag": "qa",
     "homeScore": "",
     "awayScore": ""
@@ -547,9 +547,9 @@ const matches = [
     "phase": "groups",
     "group": "A",
     "date": "2026-06-19T01:00:00.000Z",
-    "homeTeam": "México",
+    "homeTeam": "Mexico",
     "homeFlag": "mx",
-    "awayTeam": "Coreia do Sul",
+    "awayTeam": "South Korea",
     "awayFlag": "kr",
     "homeScore": "",
     "awayScore": ""
@@ -559,9 +559,9 @@ const matches = [
     "phase": "groups",
     "group": "D",
     "date": "2026-06-19T19:00:00.000Z",
-    "homeTeam": "Estados Unidos",
+    "homeTeam": "United States",
     "homeFlag": "us",
-    "awayTeam": "Austrália",
+    "awayTeam": "Australia",
     "awayFlag": "au",
     "homeScore": "",
     "awayScore": ""
@@ -571,9 +571,9 @@ const matches = [
     "phase": "groups",
     "group": "C",
     "date": "2026-06-19T22:00:00.000Z",
-    "homeTeam": "Escócia",
+    "homeTeam": "Scotland",
     "homeFlag": "gb-sct",
-    "awayTeam": "Marrocos",
+    "awayTeam": "Morocco",
     "awayFlag": "ma",
     "homeScore": "",
     "awayScore": ""
@@ -583,7 +583,7 @@ const matches = [
     "phase": "groups",
     "group": "C",
     "date": "2026-06-20T00:30:00.000Z",
-    "homeTeam": "Brasil",
+    "homeTeam": "Brazil",
     "homeFlag": "br",
     "awayTeam": "Haiti",
     "awayFlag": "ht",
@@ -595,9 +595,9 @@ const matches = [
     "phase": "groups",
     "group": "D",
     "date": "2026-06-20T03:00:00.000Z",
-    "homeTeam": "Turquia",
+    "homeTeam": "Turkey",
     "homeFlag": "tr",
-    "awayTeam": "Paraguai",
+    "awayTeam": "Paraguay",
     "awayFlag": "py",
     "homeScore": "",
     "awayScore": ""
@@ -607,9 +607,9 @@ const matches = [
     "phase": "groups",
     "group": "F",
     "date": "2026-06-20T17:00:00.000Z",
-    "homeTeam": "Holanda",
+    "homeTeam": "Netherlands",
     "homeFlag": "nl",
-    "awayTeam": "Suécia",
+    "awayTeam": "Sweden",
     "awayFlag": "se",
     "homeScore": "",
     "awayScore": ""
@@ -619,9 +619,9 @@ const matches = [
     "phase": "groups",
     "group": "E",
     "date": "2026-06-20T20:00:00.000Z",
-    "homeTeam": "Alemanha",
+    "homeTeam": "Germany",
     "homeFlag": "de",
-    "awayTeam": "Costa do Marfim",
+    "awayTeam": "Ivory Coast",
     "awayFlag": "ci",
     "homeScore": "",
     "awayScore": ""
@@ -631,7 +631,7 @@ const matches = [
     "phase": "groups",
     "group": "E",
     "date": "2026-06-21T00:00:00.000Z",
-    "homeTeam": "Equador",
+    "homeTeam": "Ecuador",
     "homeFlag": "ec",
     "awayTeam": "Curaçao",
     "awayFlag": "cw",
@@ -643,9 +643,9 @@ const matches = [
     "phase": "groups",
     "group": "F",
     "date": "2026-06-21T04:00:00.000Z",
-    "homeTeam": "Tunísia",
+    "homeTeam": "Tunisia",
     "homeFlag": "tn",
-    "awayTeam": "Japão",
+    "awayTeam": "Japan",
     "awayFlag": "jp",
     "homeScore": "",
     "awayScore": ""
@@ -655,9 +655,9 @@ const matches = [
     "phase": "groups",
     "group": "H",
     "date": "2026-06-21T16:00:00.000Z",
-    "homeTeam": "Espanha",
+    "homeTeam": "Spain",
     "homeFlag": "es",
-    "awayTeam": "Arábia Saudita",
+    "awayTeam": "Saudi Arabia",
     "awayFlag": "sa",
     "homeScore": "",
     "awayScore": ""
@@ -667,9 +667,9 @@ const matches = [
     "phase": "groups",
     "group": "G",
     "date": "2026-06-21T19:00:00.000Z",
-    "homeTeam": "Bélgica",
+    "homeTeam": "Belgium",
     "homeFlag": "be",
-    "awayTeam": "Irão",
+    "awayTeam": "Iran",
     "awayFlag": "ir",
     "homeScore": "",
     "awayScore": ""
@@ -679,9 +679,9 @@ const matches = [
     "phase": "groups",
     "group": "H",
     "date": "2026-06-21T22:00:00.000Z",
-    "homeTeam": "Uruguai",
+    "homeTeam": "Uruguay",
     "homeFlag": "uy",
-    "awayTeam": "Cabo Verde",
+    "awayTeam": "Cape Verde",
     "awayFlag": "cv",
     "homeScore": "",
     "awayScore": ""
@@ -691,9 +691,9 @@ const matches = [
     "phase": "groups",
     "group": "G",
     "date": "2026-06-22T01:00:00.000Z",
-    "homeTeam": "Nova Zelândia",
+    "homeTeam": "New Zealand",
     "homeFlag": "nz",
-    "awayTeam": "Egito",
+    "awayTeam": "Egypt",
     "awayFlag": "eg",
     "homeScore": "",
     "awayScore": ""
@@ -705,7 +705,7 @@ const matches = [
     "date": "2026-06-22T17:00:00.000Z",
     "homeTeam": "Argentina",
     "homeFlag": "ar",
-    "awayTeam": "Áustria",
+    "awayTeam": "Austria",
     "awayFlag": "at",
     "homeScore": "",
     "awayScore": ""
@@ -715,9 +715,9 @@ const matches = [
     "phase": "groups",
     "group": "I",
     "date": "2026-06-22T21:00:00.000Z",
-    "homeTeam": "França",
+    "homeTeam": "France",
     "homeFlag": "fr",
-    "awayTeam": "Iraque",
+    "awayTeam": "Iraq",
     "awayFlag": "iq",
     "homeScore": "",
     "awayScore": ""
@@ -727,7 +727,7 @@ const matches = [
     "phase": "groups",
     "group": "I",
     "date": "2026-06-23T00:00:00.000Z",
-    "homeTeam": "Noruega",
+    "homeTeam": "Norway",
     "homeFlag": "no",
     "awayTeam": "Senegal",
     "awayFlag": "sn",
@@ -739,9 +739,9 @@ const matches = [
     "phase": "groups",
     "group": "J",
     "date": "2026-06-23T03:00:00.000Z",
-    "homeTeam": "Jordânia",
+    "homeTeam": "Jordan",
     "homeFlag": "jo",
-    "awayTeam": "Argélia",
+    "awayTeam": "Algeria",
     "awayFlag": "dz",
     "homeScore": "",
     "awayScore": ""
@@ -753,7 +753,7 @@ const matches = [
     "date": "2026-06-23T17:00:00.000Z",
     "homeTeam": "Portugal",
     "homeFlag": "pt",
-    "awayTeam": "Uzbequistão",
+    "awayTeam": "Uzbekistan",
     "awayFlag": "uz",
     "homeScore": "",
     "awayScore": ""
@@ -763,9 +763,9 @@ const matches = [
     "phase": "groups",
     "group": "L",
     "date": "2026-06-23T20:00:00.000Z",
-    "homeTeam": "Inglaterra",
+    "homeTeam": "England",
     "homeFlag": "gb-eng",
-    "awayTeam": "Gana",
+    "awayTeam": "Ghana",
     "awayFlag": "gh",
     "homeScore": "",
     "awayScore": ""
@@ -775,9 +775,9 @@ const matches = [
     "phase": "groups",
     "group": "L",
     "date": "2026-06-23T23:00:00.000Z",
-    "homeTeam": "Panamá",
+    "homeTeam": "Panama",
     "homeFlag": "pa",
-    "awayTeam": "Croácia",
+    "awayTeam": "Croatia",
     "awayFlag": "hr",
     "homeScore": "",
     "awayScore": ""
@@ -787,9 +787,9 @@ const matches = [
     "phase": "groups",
     "group": "K",
     "date": "2026-06-24T02:00:00.000Z",
-    "homeTeam": "Colômbia",
+    "homeTeam": "Colombia",
     "homeFlag": "co",
-    "awayTeam": "RD Congo",
+    "awayTeam": "DR Congo",
     "awayFlag": "cd",
     "homeScore": "",
     "awayScore": ""
@@ -799,9 +799,9 @@ const matches = [
     "phase": "groups",
     "group": "B",
     "date": "2026-06-24T19:00:00.000Z",
-    "homeTeam": "Suíça",
+    "homeTeam": "Switzerland",
     "homeFlag": "ch",
-    "awayTeam": "Canadá",
+    "awayTeam": "Canada",
     "awayFlag": "ca",
     "homeScore": "",
     "awayScore": ""
@@ -813,7 +813,7 @@ const matches = [
     "date": "2026-06-24T19:00:00.000Z",
     "homeTeam": "Bósnia e Herzegovina",
     "homeFlag": "un",
-    "awayTeam": "Catar",
+    "awayTeam": "Qatar",
     "awayFlag": "qa",
     "homeScore": "",
     "awayScore": ""
@@ -823,7 +823,7 @@ const matches = [
     "phase": "groups",
     "group": "C",
     "date": "2026-06-24T22:00:00.000Z",
-    "homeTeam": "Marrocos",
+    "homeTeam": "Morocco",
     "homeFlag": "ma",
     "awayTeam": "Haiti",
     "awayFlag": "ht",
@@ -835,9 +835,9 @@ const matches = [
     "phase": "groups",
     "group": "C",
     "date": "2026-06-24T22:00:00.000Z",
-    "homeTeam": "Escócia",
+    "homeTeam": "Scotland",
     "homeFlag": "gb-sct",
-    "awayTeam": "Brasil",
+    "awayTeam": "Brazil",
     "awayFlag": "br",
     "homeScore": "",
     "awayScore": ""
@@ -847,9 +847,9 @@ const matches = [
     "phase": "groups",
     "group": "A",
     "date": "2026-06-25T01:00:00.000Z",
-    "homeTeam": "África do Sul",
+    "homeTeam": "South Africa",
     "homeFlag": "za",
-    "awayTeam": "Coreia do Sul",
+    "awayTeam": "South Korea",
     "awayFlag": "kr",
     "homeScore": "",
     "awayScore": ""
@@ -859,9 +859,9 @@ const matches = [
     "phase": "groups",
     "group": "A",
     "date": "2026-06-25T01:00:00.000Z",
-    "homeTeam": "Tchéquia",
+    "homeTeam": "Czechia",
     "homeFlag": "cz",
-    "awayTeam": "México",
+    "awayTeam": "Mexico",
     "awayFlag": "mx",
     "homeScore": "",
     "awayScore": ""
@@ -873,7 +873,7 @@ const matches = [
     "date": "2026-06-25T20:00:00.000Z",
     "homeTeam": "Curaçao",
     "homeFlag": "cw",
-    "awayTeam": "Costa do Marfim",
+    "awayTeam": "Ivory Coast",
     "awayFlag": "ci",
     "homeScore": "",
     "awayScore": ""
@@ -883,9 +883,9 @@ const matches = [
     "phase": "groups",
     "group": "E",
     "date": "2026-06-25T20:00:00.000Z",
-    "homeTeam": "Equador",
+    "homeTeam": "Ecuador",
     "homeFlag": "ec",
-    "awayTeam": "Alemanha",
+    "awayTeam": "Germany",
     "awayFlag": "de",
     "homeScore": "",
     "awayScore": ""
@@ -895,9 +895,9 @@ const matches = [
     "phase": "groups",
     "group": "F",
     "date": "2026-06-25T23:00:00.000Z",
-    "homeTeam": "Tunísia",
+    "homeTeam": "Tunisia",
     "homeFlag": "tn",
-    "awayTeam": "Holanda",
+    "awayTeam": "Netherlands",
     "awayFlag": "nl",
     "homeScore": "",
     "awayScore": ""
@@ -907,9 +907,9 @@ const matches = [
     "phase": "groups",
     "group": "F",
     "date": "2026-06-25T23:00:00.000Z",
-    "homeTeam": "Japão",
+    "homeTeam": "Japan",
     "homeFlag": "jp",
-    "awayTeam": "Suécia",
+    "awayTeam": "Sweden",
     "awayFlag": "se",
     "homeScore": "",
     "awayScore": ""
@@ -919,9 +919,9 @@ const matches = [
     "phase": "groups",
     "group": "D",
     "date": "2026-06-26T02:00:00.000Z",
-    "homeTeam": "Turquia",
+    "homeTeam": "Turkey",
     "homeFlag": "tr",
-    "awayTeam": "Estados Unidos",
+    "awayTeam": "United States",
     "awayFlag": "us",
     "homeScore": "",
     "awayScore": ""
@@ -931,9 +931,9 @@ const matches = [
     "phase": "groups",
     "group": "D",
     "date": "2026-06-26T02:00:00.000Z",
-    "homeTeam": "Paraguai",
+    "homeTeam": "Paraguay",
     "homeFlag": "py",
-    "awayTeam": "Austrália",
+    "awayTeam": "Australia",
     "awayFlag": "au",
     "homeScore": "",
     "awayScore": ""
@@ -943,9 +943,9 @@ const matches = [
     "phase": "groups",
     "group": "I",
     "date": "2026-06-26T19:00:00.000Z",
-    "homeTeam": "Noruega",
+    "homeTeam": "Norway",
     "homeFlag": "no",
-    "awayTeam": "França",
+    "awayTeam": "France",
     "awayFlag": "fr",
     "homeScore": "",
     "awayScore": ""
@@ -957,7 +957,7 @@ const matches = [
     "date": "2026-06-26T19:00:00.000Z",
     "homeTeam": "Senegal",
     "homeFlag": "sn",
-    "awayTeam": "Iraque",
+    "awayTeam": "Iraq",
     "awayFlag": "iq",
     "homeScore": "",
     "awayScore": ""
@@ -967,9 +967,9 @@ const matches = [
     "phase": "groups",
     "group": "H",
     "date": "2026-06-27T00:00:00.000Z",
-    "homeTeam": "Cabo Verde",
+    "homeTeam": "Cape Verde",
     "homeFlag": "cv",
-    "awayTeam": "Arábia Saudita",
+    "awayTeam": "Saudi Arabia",
     "awayFlag": "sa",
     "homeScore": "",
     "awayScore": ""
@@ -979,9 +979,9 @@ const matches = [
     "phase": "groups",
     "group": "H",
     "date": "2026-06-27T00:00:00.000Z",
-    "homeTeam": "Uruguai",
+    "homeTeam": "Uruguay",
     "homeFlag": "uy",
-    "awayTeam": "Espanha",
+    "awayTeam": "Spain",
     "awayFlag": "es",
     "homeScore": "",
     "awayScore": ""
@@ -991,9 +991,9 @@ const matches = [
     "phase": "groups",
     "group": "G",
     "date": "2026-06-27T03:00:00.000Z",
-    "homeTeam": "Nova Zelândia",
+    "homeTeam": "New Zealand",
     "homeFlag": "nz",
-    "awayTeam": "Bélgica",
+    "awayTeam": "Belgium",
     "awayFlag": "be",
     "homeScore": "",
     "awayScore": ""
@@ -1003,9 +1003,9 @@ const matches = [
     "phase": "groups",
     "group": "G",
     "date": "2026-06-27T03:00:00.000Z",
-    "homeTeam": "Egito",
+    "homeTeam": "Egypt",
     "homeFlag": "eg",
-    "awayTeam": "Irão",
+    "awayTeam": "Iran",
     "awayFlag": "ir",
     "homeScore": "",
     "awayScore": ""
@@ -1015,9 +1015,9 @@ const matches = [
     "phase": "groups",
     "group": "L",
     "date": "2026-06-27T21:00:00.000Z",
-    "homeTeam": "Panamá",
+    "homeTeam": "Panama",
     "homeFlag": "pa",
-    "awayTeam": "Inglaterra",
+    "awayTeam": "England",
     "awayFlag": "gb-eng",
     "homeScore": "",
     "awayScore": ""
@@ -1027,9 +1027,9 @@ const matches = [
     "phase": "groups",
     "group": "L",
     "date": "2026-06-27T21:00:00.000Z",
-    "homeTeam": "Croácia",
+    "homeTeam": "Croatia",
     "homeFlag": "hr",
-    "awayTeam": "Gana",
+    "awayTeam": "Ghana",
     "awayFlag": "gh",
     "homeScore": "",
     "awayScore": ""
@@ -1039,7 +1039,7 @@ const matches = [
     "phase": "groups",
     "group": "K",
     "date": "2026-06-27T23:30:00.000Z",
-    "homeTeam": "Colômbia",
+    "homeTeam": "Colombia",
     "homeFlag": "co",
     "awayTeam": "Portugal",
     "awayFlag": "pt",
@@ -1051,9 +1051,9 @@ const matches = [
     "phase": "groups",
     "group": "K",
     "date": "2026-06-27T23:30:00.000Z",
-    "homeTeam": "RD Congo",
+    "homeTeam": "DR Congo",
     "homeFlag": "cd",
-    "awayTeam": "Uzbequistão",
+    "awayTeam": "Uzbekistan",
     "awayFlag": "uz",
     "homeScore": "",
     "awayScore": ""
@@ -1063,9 +1063,9 @@ const matches = [
     "phase": "groups",
     "group": "J",
     "date": "2026-06-28T02:00:00.000Z",
-    "homeTeam": "Argélia",
+    "homeTeam": "Algeria",
     "homeFlag": "dz",
-    "awayTeam": "Áustria",
+    "awayTeam": "Austria",
     "awayFlag": "at",
     "homeScore": "",
     "awayScore": ""
@@ -1075,7 +1075,7 @@ const matches = [
     "phase": "groups",
     "group": "J",
     "date": "2026-06-28T02:00:00.000Z",
-    "homeTeam": "Jordânia",
+    "homeTeam": "Jordan",
     "homeFlag": "jo",
     "awayTeam": "Argentina",
     "awayFlag": "ar",
