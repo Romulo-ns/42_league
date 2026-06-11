@@ -52,7 +52,22 @@ function getCleanTeam(str) {
   
   if (map[str]) flag = map[str];
   
-  return { name: str, flag: flag };
+  const enMap = {
+    'México': 'Mexico', 'África do Sul': 'South Africa', 'Coreia do Sul': 'South Korea', 'Tchéquia': 'Czechia',
+    'Canadá': 'Canada', 'Bósnia e Herz.': 'Bosnia & Herz.', 'Catar': 'Qatar', 'Suíça': 'Switzerland',
+    'Brasil': 'Brazil', 'Marrocos': 'Morocco', 'Haiti': 'Haiti', 'Escócia': 'Scotland',
+    'Estados Unidos': 'United States', 'Paraguai': 'Paraguay', 'Austrália': 'Australia', 'Turquia': 'Turkey',
+    'Alemanha': 'Germany', 'Curaçao': 'Curaçao', 'Costa do Marfim': 'Ivory Coast', 'Equador': 'Ecuador',
+    'Holanda': 'Netherlands', 'Japão': 'Japan', 'Suécia': 'Sweden', 'Tunísia': 'Tunisia',
+    'Bélgica': 'Belgium', 'Egito': 'Egypt', 'Irão': 'Iran', 'Nova Zelândia': 'New Zealand',
+    'Espanha': 'Spain', 'Cabo Verde': 'Cape Verde', 'Arábia Saudita': 'Saudi Arabia', 'Uruguai': 'Uruguay',
+    'França': 'France', 'Senegal': 'Senegal', 'Iraque': 'Iraq', 'Noruega': 'Norway',
+    'Argentina': 'Argentina', 'Argélia': 'Algeria', 'Áustria': 'Austria', 'Jordânia': 'Jordan',
+    'Portugal': 'Portugal', 'RD Congo': 'DR Congo', 'Uzbequistão': 'Uzbekistan', 'Colômbia': 'Colombia',
+    'Inglaterra': 'England', 'Croácia': 'Croatia', 'Gana': 'Ghana', 'Panamá': 'Panama'
+  };
+  
+  return { name: enMap[str] || str, flag: flag };
 }
 
 let i = 0;
