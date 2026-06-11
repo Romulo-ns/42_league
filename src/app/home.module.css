@@ -76,6 +76,8 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  flex: 1;
+  min-width: 0;
 }
 
 .rankPos {
@@ -83,16 +85,22 @@
   font-weight: 800;
   color: var(--primary-color);
   width: 32px;
+  flex-shrink: 0;
 }
 
 .rankName {
   font-size: 1.125rem;
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .rankPoints {
   font-weight: 700;
   color: var(--text-muted);
+  flex-shrink: 0;
+  margin-left: 16px;
 }
 
 @keyframes fadeIn {
