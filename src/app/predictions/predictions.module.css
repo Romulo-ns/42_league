@@ -321,6 +321,13 @@
   color: var(--text-muted);
 }
 
+.centerColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 16px;
+}
+
 .actionRow {
   display: flex;
   justify-content: flex-end;
@@ -335,16 +342,34 @@
 
 @media (max-width: 600px) {
   .scoreInput {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
+    width: 44px;
+    height: 44px;
+    font-size: 1.25rem;
+  }
+  .scoreBtn {
+    width: 28px;
+    height: 28px;
+    font-size: 1.1rem;
+  }
+  .scoreControl {
+    gap: 4px;
+  }
+  .teamsRow {
+    gap: 8px;
   }
   .teamName {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
   .flag {
     width: 36px;
     height: 24px;
+  }
+  .centerColumn {
+    margin: 0 8px;
+  }
+  .matchCard {
+    padding-left: 12px;
+    padding-right: 12px;
   }
 }
 
