@@ -88,7 +88,7 @@
   background-repeat: no-repeat;
   background-position: right 16px top 50%;
   background-size: 12px auto;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .campusSelect:hover {
@@ -188,7 +188,7 @@
   align-items: center;
   gap: 16px;
   position: relative;
-  padding-top: 32px;
+  padding-top: 40px;
 }
 
 .matchDate {
@@ -201,6 +201,7 @@
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-muted);
+  z-index: 10;
 }
 
 .lockedBadge {
@@ -214,6 +215,7 @@
   font-size: 0.8rem;
   font-weight: 700;
   box-shadow: 0 2px 8px rgba(255, 77, 77, 0.4);
+  z-index: 10;
 }
 
 .teamsRow {
@@ -258,7 +260,8 @@
   color: #fff;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   font-family: inherit;
-  -moz-appearance: textfield; /* Firefox */
+  -moz-appearance: textfield;
+  /* Firefox */
 }
 
 /* Hide native arrows */
@@ -301,7 +304,8 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  padding-bottom: 2px; /* Visual alignment for + and - text */
+  padding-bottom: 2px;
+  /* Visual alignment for + and - text */
 }
 
 .scoreBtn:hover:not(:disabled) {
@@ -321,6 +325,13 @@
   color: var(--text-muted);
 }
 
+.centerColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 16px;
+}
+
 .actionRow {
   display: flex;
   justify-content: flex-end;
@@ -329,22 +340,54 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 600px) {
   .scoreInput {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
+    width: 44px;
+    height: 44px;
+    font-size: 1.25rem;
   }
+
+  .scoreBtn {
+    width: 28px;
+    height: 28px;
+    font-size: 1.1rem;
+  }
+
+  .scoreControl {
+    gap: 4px;
+  }
+
+  .teamsRow {
+    gap: 8px;
+  }
+
   .teamName {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
+
   .flag {
     width: 36px;
     height: 24px;
+  }
+
+  .centerColumn {
+    margin: 0 8px;
+  }
+
+  .matchCard {
+    padding-left: 12px;
+    padding-right: 12px;
   }
 }
 
