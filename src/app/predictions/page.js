@@ -347,7 +347,7 @@ export default function Predictions() {
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 16px' }}>
                         <span className={styles.vs}>VS</span>
                         {isLocked && game.officialHome !== undefined && (
-                          <div style={{ background: 'var(--primary-color)', color: '#fff', padding: '2px 8px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 'bold', marginTop: '4px', whiteSpace: 'nowrap' }}>
+                          <div style={{ background: 'var(--primary-color)', color: '#000', padding: '2px 8px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 'bold', marginTop: '4px', whiteSpace: 'nowrap' }}>
                             Official: {game.officialHome} - {game.officialAway}
                           </div>
                         )}
@@ -445,7 +445,7 @@ export default function Predictions() {
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 16px' }}>
                         <span className={styles.vs}>VS</span>
                         {isLocked && game.officialHome !== undefined && (
-                          <div style={{ background: 'var(--primary-color)', color: '#fff', padding: '2px 8px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 'bold', marginTop: '4px', whiteSpace: 'nowrap' }}>
+                          <div style={{ background: 'var(--primary-color)', color: '#000', padding: '2px 8px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 'bold', marginTop: '4px', whiteSpace: 'nowrap' }}>
                             Official: {game.officialHome} - {game.officialAway}
                           </div>
                         )}
