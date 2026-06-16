@@ -317,13 +317,15 @@ export default function Predictions() {
                         <span className={styles.teamName}>{game.homeTeam}</span>
                         
                         <div className={styles.scoreControl}>
-                          <button 
-                            className={styles.scoreBtn} 
-                            onClick={() => decrementScore(game.id, 'homeScore', game.homeScore)}
-                            disabled={isLocked || game.homeScore === "0"}
-                          >
-                            -
-                          </button>
+                          {!isLocked && (
+                            <button 
+                              className={styles.scoreBtn} 
+                              onClick={() => decrementScore(game.id, 'homeScore', game.homeScore)}
+                              disabled={game.homeScore === "0"}
+                            >
+                              -
+                            </button>
+                          )}
                           <input 
                             type="number" 
                             className={styles.scoreInput} 
@@ -334,13 +336,14 @@ export default function Predictions() {
                             placeholder="0"
                             disabled={isLocked}
                           />
-                          <button 
-                            className={styles.scoreBtn} 
-                            onClick={() => incrementScore(game.id, 'homeScore', game.homeScore)}
-                            disabled={isLocked}
-                          >
-                            +
-                          </button>
+                          {!isLocked && (
+                            <button 
+                              className={styles.scoreBtn} 
+                              onClick={() => incrementScore(game.id, 'homeScore', game.homeScore)}
+                            >
+                              +
+                            </button>
+                          )}
                         </div>
                       </div>
                       
@@ -358,13 +361,15 @@ export default function Predictions() {
                         <span className={styles.teamName}>{game.awayTeam}</span>
                         
                         <div className={styles.scoreControl}>
-                          <button 
-                            className={styles.scoreBtn} 
-                            onClick={() => decrementScore(game.id, 'awayScore', game.awayScore)}
-                            disabled={isLocked || game.awayScore === "0"}
-                          >
-                            -
-                          </button>
+                          {!isLocked && (
+                            <button 
+                              className={styles.scoreBtn} 
+                              onClick={() => decrementScore(game.id, 'awayScore', game.awayScore)}
+                              disabled={game.awayScore === "0"}
+                            >
+                              -
+                            </button>
+                          )}
                           <input 
                             type="number" 
                             className={styles.scoreInput} 
@@ -375,13 +380,14 @@ export default function Predictions() {
                             placeholder="0"
                             disabled={isLocked}
                           />
-                          <button 
-                            className={styles.scoreBtn} 
-                            onClick={() => incrementScore(game.id, 'awayScore', game.awayScore)}
-                            disabled={isLocked}
-                          >
-                            +
-                          </button>
+                          {!isLocked && (
+                            <button 
+                              className={styles.scoreBtn} 
+                              onClick={() => incrementScore(game.id, 'awayScore', game.awayScore)}
+                            >
+                              +
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -415,13 +421,15 @@ export default function Predictions() {
                         <span className={styles.teamName}>{game.homeTeam}</span>
                         
                         <div className={styles.scoreControl}>
-                          <button 
-                            className={styles.scoreBtn} 
-                            onClick={() => decrementScore(game.id, 'homeScore', game.homeScore)}
-                            disabled={isLocked || isTBD || game.homeScore === "0"}
-                          >
-                            -
-                          </button>
+                          {!(isLocked || isTBD) && (
+                            <button 
+                              className={styles.scoreBtn} 
+                              onClick={() => decrementScore(game.id, 'homeScore', game.homeScore)}
+                              disabled={game.homeScore === "0"}
+                            >
+                              -
+                            </button>
+                          )}
                           <input 
                             type="number" 
                             className={styles.scoreInput} 
@@ -432,13 +440,14 @@ export default function Predictions() {
                             placeholder="0"
                             disabled={isLocked || isTBD}
                           />
-                          <button 
-                            className={styles.scoreBtn} 
-                            onClick={() => incrementScore(game.id, 'homeScore', game.homeScore)}
-                            disabled={isLocked || isTBD}
-                          >
-                            +
-                          </button>
+                          {!(isLocked || isTBD) && (
+                            <button 
+                              className={styles.scoreBtn} 
+                              onClick={() => incrementScore(game.id, 'homeScore', game.homeScore)}
+                            >
+                              +
+                            </button>
+                          )}
                         </div>
                       </div>
 
@@ -456,13 +465,15 @@ export default function Predictions() {
                         <span className={styles.teamName}>{game.awayTeam}</span>
 
                         <div className={styles.scoreControl}>
-                          <button 
-                            className={styles.scoreBtn} 
-                            onClick={() => decrementScore(game.id, 'awayScore', game.awayScore)}
-                            disabled={isLocked || isTBD || game.awayScore === "0"}
-                          >
-                            -
-                          </button>
+                          {!(isLocked || isTBD) && (
+                            <button 
+                              className={styles.scoreBtn} 
+                              onClick={() => decrementScore(game.id, 'awayScore', game.awayScore)}
+                              disabled={game.awayScore === "0"}
+                            >
+                              -
+                            </button>
+                          )}
                           <input 
                             type="number" 
                             className={styles.scoreInput} 
@@ -473,13 +484,14 @@ export default function Predictions() {
                             placeholder="0"
                             disabled={isLocked || isTBD}
                           />
-                          <button 
-                            className={styles.scoreBtn} 
-                            onClick={() => incrementScore(game.id, 'awayScore', game.awayScore)}
-                            disabled={isLocked || isTBD}
-                          >
-                            +
-                          </button>
+                          {!(isLocked || isTBD) && (
+                            <button 
+                              className={styles.scoreBtn} 
+                              onClick={() => incrementScore(game.id, 'awayScore', game.awayScore)}
+                            >
+                              +
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>
