@@ -44,7 +44,7 @@ export default function Home() {
       futureMatches.sort((a, b) => new Date(a.date) - new Date(b.date));
       const nextMatchDateStr = new Date(futureMatches[0].date).toISOString().split('T')[0];
       
-      let upcoming = allMatches.filter(g => g.date.startsWith(nextMatchDateStr));
+      let upcoming = allMatches.filter(g => g.date.startsWith(nextMatchDateStr) && new Date(g.date) > now);
       
       // Fetch knockout teams to update any TBDs in upcoming matches
       const { data: knockoutTeams } = await supabase
