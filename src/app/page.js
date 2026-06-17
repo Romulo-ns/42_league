@@ -31,7 +31,7 @@ export default function Home() {
         .order('total_points', { ascending: false })
         .order('user_name', { ascending: true })
         .limit(3);
-        
+
       if (data) {
         setLeaderboard(data);
       }
@@ -40,17 +40,17 @@ export default function Home() {
       const now = new Date();
       let futureMatches = allMatches.filter(g => new Date(g.date) > now);
       if (futureMatches.length === 0) return;
-      
+
       futureMatches.sort((a, b) => new Date(a.date) - new Date(b.date));
       const nextMatchDateStr = new Date(futureMatches[0].date).toISOString().split('T')[0];
-      
+
       let upcoming = allMatches.filter(g => g.date.startsWith(nextMatchDateStr) && new Date(g.date) > now);
-      
+
       // Fetch knockout teams to update any TBDs in upcoming matches
       const { data: knockoutTeams } = await supabase
         .from('knockout_teams')
         .select('*');
-        
+
       if (knockoutTeams) {
         upcoming = upcoming.map(game => {
           const savedKnockout = knockoutTeams.find(k => k.match_id === game.id);
@@ -66,10 +66,10 @@ export default function Home() {
           return game;
         });
       }
-      
+
       setUpcomingGames(upcoming);
     };
-    
+
     fetchTopPlayers();
     fetchMatchesData();
 
@@ -84,7 +84,7 @@ export default function Home() {
     <main className={styles.container}>
       <section className={styles.hero}>
         <p className={styles.subtitle}>
-          Get ready for the biggest World Cup in history. 
+          Get ready for the biggest World Cup in history.
           Make your predictions, challenge your friends, and reach the top of the leaderboard!
         </p>
         <div className={styles.actions}>
@@ -115,7 +115,7 @@ export default function Home() {
               Predict &rarr;
             </Link>
           </div>
-          
+
           <div className={`${styles.rankingList} glass-panel`} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {upcomingGames.map((game) => (
               <div key={game.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px', background: 'rgba(255,255,255,0.02)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
@@ -123,7 +123,7 @@ export default function Home() {
                   {game.homeFlag !== 'un' && <img src={`https://flagcdn.com/w40/${game.homeFlag}.png`} alt={game.homeTeam} style={{ width: '28px', borderRadius: '4px' }} />}
                   <span style={{ fontWeight: '600', color: '#fff' }}>{game.homeTeam}</span>
                 </div>
-                
+
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 16px' }}>
                   <span suppressHydrationWarning style={{ fontSize: '0.9rem', color: 'var(--primary-color)', fontWeight: '800' }}>
                     {new Date(game.date).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}
@@ -148,7 +148,7 @@ export default function Home() {
             View all &rarr;
           </Link>
         </div>
-        
+
         <div className={`${styles.rankingList} glass-panel`}>
           {leaderboard.length === 0 ? (
             <div style={{ textAlign: "center", color: "var(--text-muted)", padding: "16px" }}>

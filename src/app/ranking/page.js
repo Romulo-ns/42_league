@@ -25,7 +25,7 @@ export default function Ranking() {
         const { data: profilesData, error: profilesError } = await supabase
           .from('profiles')
           .select('user_id, campus');
-          
+
         if (!profilesError && profilesData) {
           // Merge campus into scores
           const enrichedLeaderboard = scoresData.map(score => {
@@ -95,7 +95,7 @@ export default function Ranking() {
                   <div className={styles.podiumBlock}>2</div>
                 </div>
               )}
-              
+
               {/* Gold - 1st */}
               {top3[0] && (
                 <div className={`${styles.podiumItem} ${styles.gold}`}>
