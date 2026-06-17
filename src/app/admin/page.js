@@ -181,6 +181,12 @@ export default function AdminPanel() {
     try {
       const { data: { session } } = await supabase.auth.getSession();
       const token = session?.access_token;
+      
+      if (!token) {
+        alert("Sessão inválida ou expirada. Faça login novamente.");
+        setIsSyncing(false);
+        return;
+      }
 
       const res = await fetch('/api/cron/sync-matches', {
         headers: {

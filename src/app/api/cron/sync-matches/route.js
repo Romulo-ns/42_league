@@ -13,10 +13,10 @@ export async function GET(request) {
 
     if (process.env.CRON_SECRET && authHeader === `Bearer ${process.env.CRON_SECRET}`) {
       isAuthorized = true;
-    } else if (authHeader && authHeader.startsWith('Bearer ')) {
-      const token = authHeader.replace('Bearer ', '');
-      if (!token || token === 'undefined') {
-        authErrorDetails = 'Token is missing or undefined.';
+    } else if (authHeader && authHeader.trim().toLowerCase().startsWith('bearer')) {
+      const token = authHeader.replace(/^Bearer\s+/i, '').trim();
+      if (!token || token === 'undefined' || token === 'null' || token === '[object Object]') {
+        authErrorDetails = `Token is missing or invalid. Received: "${token}"`;
       } else {
         const { data: { user }, error } = await supabase.auth.getUser(token);
         if (error) {
