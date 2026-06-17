@@ -189,7 +189,7 @@ export default function AdminPanel() {
       });
       const data = await res.json();
       if (!res.ok) {
-        alert(data.error || 'Failed to sync matches');
+        alert(`Error: ${data.error}. Details: ${data.details || 'None'}`);
       } else {
         alert(data.message || 'Sync complete.');
         window.location.reload(); // Reload to fetch fresh data from Supabase
