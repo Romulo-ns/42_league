@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# temp scripts and data
+*.sql
+test_*.js
+check_db.mjs
+parse_script.js
+raw_schedule.txt
