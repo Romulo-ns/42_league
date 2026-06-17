@@ -179,7 +179,14 @@ export default function AdminPanel() {
   const handleSync = async () => {
     setIsSyncing(true);
     try {
-      const res = await fetch('/api/cron/sync-matches');
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+
+      const res = await fetch('/api/cron/sync-matches', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       const data = await res.json();
       if (!res.ok) {
         alert(data.error || 'Failed to sync matches');
