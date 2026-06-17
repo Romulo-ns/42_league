@@ -7,13 +7,24 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request) {
   try {
-    // Basic security to ensure only cron or admin hits this
     const authHeader = request.headers.get('authorization');
-    if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-      // In a real app we would reject, but let's allow it for testing if CRON_SECRET is not set
-      if (process.env.CRON_SECRET) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    let isAuthorized = false;
+
+    if (process.env.CRON_SECRET && authHeader === `Bearer ${process.env.CRON_SECRET}`) {
+      isAuthorized = true;
+    } else if (authHeader && authHeader.startsWith('Bearer ')) {
+      const token = authHeader.replace('Bearer ', '');
+      const { data: { user }, error } = await supabase.auth.getUser(token);
+      if (!error && user && user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
+        isAuthorized = true;
       }
+    } else if (!process.env.CRON_SECRET) {
+      // For local testing if CRON_SECRET is not set
+      isAuthorized = true;
+    }
+
+    if (!isAuthorized) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const now = new Date();
