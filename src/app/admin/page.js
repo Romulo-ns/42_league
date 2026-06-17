@@ -18,6 +18,7 @@ export default function AdminPanel() {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -175,6 +176,23 @@ export default function AdminPanel() {
     }
   };
 
+  const handleSync = async () => {
+    setIsSyncing(true);
+    try {
+      const res = await fetch('/api/cron/sync-matches');
+      const data = await res.json();
+      if (!res.ok) {
+        alert(data.error || 'Failed to sync matches');
+      } else {
+        alert(data.message || 'Sync complete.');
+        window.location.reload(); // Reload to fetch fresh data from Supabase
+      }
+    } catch (err) {
+      alert('Error: ' + err.message);
+    }
+    setIsSyncing(false);
+  };
+
   const formatDisplayDate = (isoString) => {
     const d = new Date(isoString);
     const options = { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false };
@@ -298,9 +316,17 @@ export default function AdminPanel() {
         ))}
       </section>
 
-      <div className={styles.actionRow} style={{ marginTop: "32px", marginBottom: "64px" }}>
-        <button className={`btn-primary ${styles.saveBtn}`} onClick={handleSave} disabled={isSaving}>
+      <div className={styles.actionRow} style={{ marginTop: "32px", marginBottom: "64px", display: "flex", gap: "16px", justifyContent: "center" }}>
+        <button className={`btn-primary ${styles.saveBtn}`} onClick={handleSave} disabled={isSaving || isSyncing}>
           {isSaving ? "Saving..." : "Save Official Scores"}
+        </button>
+        <button 
+          className={`btn-primary ${styles.saveBtn}`} 
+          onClick={handleSync} 
+          disabled={isSyncing || isSaving}
+          style={{ background: "var(--accent-color)" }}
+        >
+          {isSyncing ? "Syncing..." : "Sync API-Football"}
         </button>
       </div>
 

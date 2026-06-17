@@ -15,7 +15,7 @@ export default function Results() {
       // Find matches that have already kicked off (locked)
       const now = new Date();
       let pastMatches = allMatches.filter(g => new Date(g.date) <= now);
-      
+
       // Sort by date descending (most recent first)
       pastMatches.sort((a, b) => new Date(b.date) - new Date(a.date));
 
@@ -23,35 +23,35 @@ export default function Results() {
       const { data: officialScores, error } = await supabase
         .from('official_matches')
         .select('*');
-        
+
       // Fetch knockout teams
       const { data: knockoutTeams } = await supabase
         .from('knockout_teams')
         .select('*');
-        
+
       if (!error) {
         pastMatches = pastMatches.map(game => {
           const savedScore = officialScores?.find(p => p.match_id === game.id);
           const savedKnockout = knockoutTeams?.find(k => k.match_id === game.id);
-          
+
           let updatedGame = { ...game };
-          
+
           if (savedScore) {
             updatedGame.officialHome = savedScore.home_score;
             updatedGame.officialAway = savedScore.away_score;
           }
-          
+
           if (savedKnockout) {
             updatedGame.homeTeam = savedKnockout.home_team;
             updatedGame.homeFlag = savedKnockout.home_flag;
             updatedGame.awayTeam = savedKnockout.away_team;
             updatedGame.awayFlag = savedKnockout.away_flag;
           }
-          
+
           return updatedGame;
         });
       }
-      
+
       setLockedGames(pastMatches);
       setIsLoading(false);
     };
@@ -74,7 +74,7 @@ export default function Results() {
       <Link href="/" style={{ color: "var(--text-muted)", marginBottom: "20px", display: "inline-block" }}>
         &larr; Back to Home
       </Link>
-      
+
       <header className={styles.header}>
         <h1 className={styles.title}>Official Results</h1>
         <p className={styles.subtitle}>Final scores for matches that have already kicked off.</p>
@@ -89,19 +89,19 @@ export default function Results() {
         <section className={styles.matchList}>
           {lockedGames.map(game => {
             const hasOfficialScore = game.officialHome !== undefined && game.officialAway !== undefined;
-            
+
             return (
               <div key={game.id} className={`glass-panel ${styles.matchCard}`}>
                 <span className={styles.matchDate} suppressHydrationWarning>
                   {formatDisplayDate(game.date)} | {game.phase === 'groups' ? `Group ${game.group}` : game.group}
                 </span>
-                
+
                 <div className={styles.teamsRow}>
                   <div className={styles.team}>
                     {game.homeFlag !== "un" && <img src={`https://flagcdn.com/w80/${game.homeFlag}.png`} alt={game.homeTeam} className={styles.flag} />}
                     <span className={styles.teamName}>{game.homeTeam}</span>
                   </div>
-                  
+
                   <div className={styles.centerColumn}>
                     {hasOfficialScore ? (
                       <div className={styles.scoreBadge}>
