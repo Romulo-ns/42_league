@@ -24,7 +24,7 @@ export default function AdminPanel() {
   useEffect(() => {
     const checkAdminAndFetchData = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      
+
       if (!session) {
         router.push('/login');
         return;
@@ -36,38 +36,38 @@ export default function AdminPanel() {
         router.push('/');
         return;
       }
-      
+
       setUser(session.user);
-      
+
       // Fetch official scores saved in the database
       const { data: officialScores, error } = await supabase
         .from('official_matches')
         .select('*');
-        
+
       // Fetch knockout teams (ignore error if table doesn't exist yet)
       const { data: knockoutTeams } = await supabase
         .from('knockout_teams')
         .select('*');
-        
+
       if (!error) {
         setGames(prevGames => prevGames.map(game => {
           const savedScore = officialScores?.find(p => p.match_id === game.id);
           const savedKnockout = knockoutTeams?.find(k => k.match_id === game.id);
-          
+
           let updatedGame = { ...game };
-          
+
           if (savedScore) {
             updatedGame.homeScore = String(savedScore.home_score);
             updatedGame.awayScore = String(savedScore.away_score);
           }
-          
+
           if (savedKnockout) {
             updatedGame.homeTeam = savedKnockout.home_team;
             updatedGame.homeFlag = savedKnockout.home_flag;
             updatedGame.awayTeam = savedKnockout.away_team;
             updatedGame.awayFlag = savedKnockout.away_flag;
           }
-          
+
           return updatedGame;
         }));
       }
@@ -90,11 +90,11 @@ export default function AdminPanel() {
   const handleTeamChange = (id, side, teamName) => {
     const selectedTeam = teamOptions.find(t => t.name === teamName);
     if (!selectedTeam) return;
-    
+
     setGames(prevGames => prevGames.map(game => {
       if (game.id === id) {
-        return { 
-          ...game, 
+        return {
+          ...game,
           [side + 'Team']: selectedTeam.name,
           [side + 'Flag']: selectedTeam.flag
         };
@@ -121,10 +121,10 @@ export default function AdminPanel() {
 
   const handleSave = async () => {
     setIsSaving(true);
-    
+
     // Get all matches that have both sides filled
     const fullyFilled = games.filter(g => g.homeScore !== "" && g.awayScore !== "");
-    
+
     if (fullyFilled.length === 0) {
       alert("Please enter both scores for at least one match before saving.");
       setIsSaving(false);
@@ -141,7 +141,7 @@ export default function AdminPanel() {
     const { error } = await supabase
       .from('official_matches')
       .upsert(payload, { onConflict: 'match_id' });
-      
+
     // Upsert knockout teams
     const knockoutPayload = games
       .filter(g => g.phase === 'knockouts' && (g.homeTeam !== 'TBD' || g.awayTeam !== 'TBD'))
@@ -152,12 +152,12 @@ export default function AdminPanel() {
         away_team: g.awayTeam,
         away_flag: g.awayFlag
       }));
-      
+
     if (knockoutPayload.length > 0) {
       const { error: ktError } = await supabase
         .from('knockout_teams')
         .upsert(knockoutPayload, { onConflict: 'match_id' });
-        
+
       if (ktError) {
         console.error("Knockout Teams Upsert Error:", ktError);
         alert(`Error saving knockout teams: ${ktError.message}`);
@@ -165,9 +165,9 @@ export default function AdminPanel() {
         return;
       }
     }
-      
+
     setIsSaving(false);
-    
+
     if (error) {
       console.error("Upsert Error:", error);
       alert(`Error saving official scores: ${error.message}`);
@@ -216,7 +216,7 @@ export default function AdminPanel() {
       <Link href="/" style={{ color: "var(--text-muted)", marginBottom: "20px", display: "inline-block" }}>
         &larr; Back to Home
       </Link>
-      
+
       <header className={styles.header}>
         <h1 className={styles.title}>Admin Panel</h1>
         <p className={styles.subtitle}>Enter the official match results here.</p>
@@ -228,14 +228,14 @@ export default function AdminPanel() {
             <span className={styles.matchDate} suppressHydrationWarning>
               Match ID: {game.id} | {formatDisplayDate(game.date)} | {game.phase === 'groups' ? `Group ${game.group}` : game.group}
             </span>
-            
+
             <div className={styles.teamsRow}>
               <div className={styles.team}>
                 {game.homeFlag !== "un" && <img src={`https://flagcdn.com/w80/${game.homeFlag}.png`} alt={game.homeTeam} className={styles.flag} />}
-                
+
                 {game.phase === 'knockouts' ? (
-                  <select 
-                    value={game.homeTeam} 
+                  <select
+                    value={game.homeTeam}
                     onChange={(e) => handleTeamChange(game.id, 'home', e.target.value)}
                     style={{ background: 'rgba(0,0,0,0.5)', color: '#fff', border: '1px solid var(--card-border)', borderRadius: '4px', padding: '4px 8px', width: '100%' }}
                   >
@@ -244,40 +244,40 @@ export default function AdminPanel() {
                 ) : (
                   <span className={styles.teamName}>{game.homeTeam}</span>
                 )}
-                
+
                 <div className={styles.scoreControl}>
-                  <button 
-                    className={styles.scoreBtn} 
+                  <button
+                    className={styles.scoreBtn}
                     onClick={() => decrementScore(game.id, 'homeScore', game.homeScore)}
                     disabled={game.homeScore === "0"}
                   >
                     -
                   </button>
-                  <input 
-                    type="number" 
-                    className={styles.scoreInput} 
-                    min="0" max="99" 
+                  <input
+                    type="number"
+                    className={styles.scoreInput}
+                    min="0" max="99"
                     value={game.homeScore}
                     onChange={(e) => handleScoreChange(game.id, 'homeScore', e.target.value)}
                     placeholder="-"
                   />
-                  <button 
-                    className={styles.scoreBtn} 
+                  <button
+                    className={styles.scoreBtn}
                     onClick={() => incrementScore(game.id, 'homeScore', game.homeScore)}
                   >
                     +
                   </button>
                 </div>
               </div>
-              
+
               <span className={styles.vs}>VS</span>
 
               <div className={styles.team}>
                 {game.awayFlag !== "un" && <img src={`https://flagcdn.com/w80/${game.awayFlag}.png`} alt={game.awayTeam} className={styles.flag} />}
-                
+
                 {game.phase === 'knockouts' ? (
-                  <select 
-                    value={game.awayTeam} 
+                  <select
+                    value={game.awayTeam}
                     onChange={(e) => handleTeamChange(game.id, 'away', e.target.value)}
                     style={{ background: 'rgba(0,0,0,0.5)', color: '#fff', border: '1px solid var(--card-border)', borderRadius: '4px', padding: '4px 8px', width: '100%' }}
                   >
@@ -286,25 +286,25 @@ export default function AdminPanel() {
                 ) : (
                   <span className={styles.teamName}>{game.awayTeam}</span>
                 )}
-                
+
                 <div className={styles.scoreControl}>
-                  <button 
-                    className={styles.scoreBtn} 
+                  <button
+                    className={styles.scoreBtn}
                     onClick={() => decrementScore(game.id, 'awayScore', game.awayScore)}
                     disabled={game.awayScore === "0"}
                   >
                     -
                   </button>
-                  <input 
-                    type="number" 
-                    className={styles.scoreInput} 
-                    min="0" max="99" 
+                  <input
+                    type="number"
+                    className={styles.scoreInput}
+                    min="0" max="99"
                     value={game.awayScore}
                     onChange={(e) => handleScoreChange(game.id, 'awayScore', e.target.value)}
                     placeholder="-"
                   />
-                  <button 
-                    className={styles.scoreBtn} 
+                  <button
+                    className={styles.scoreBtn}
                     onClick={() => incrementScore(game.id, 'awayScore', game.awayScore)}
                   >
                     +
@@ -320,11 +320,10 @@ export default function AdminPanel() {
         <button className={`btn-primary ${styles.saveBtn}`} onClick={handleSave} disabled={isSaving || isSyncing}>
           {isSaving ? "Saving..." : "Save Official Scores"}
         </button>
-        <button 
-          className={`btn-primary ${styles.saveBtn}`} 
-          onClick={handleSync} 
+        <button
+          className={`btn-primary ${styles.saveBtn}`}
+          onClick={handleSync}
           disabled={isSyncing || isSaving}
-          style={{ background: "var(--accent-color)" }}
         >
           {isSyncing ? "Syncing..." : "Sync API-Football"}
         </button>
