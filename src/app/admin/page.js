@@ -184,7 +184,7 @@ export default function AdminPanel() {
 
       const res = await fetch('/api/cron/sync-matches', {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'x-admin-email': user?.email || ''
         }
       });
       const data = await res.json();

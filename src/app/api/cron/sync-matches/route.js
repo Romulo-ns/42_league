@@ -13,25 +13,11 @@ export async function GET(request) {
 
     if (process.env.CRON_SECRET && authHeader === `Bearer ${process.env.CRON_SECRET}`) {
       isAuthorized = true;
-    } else if (authHeader && authHeader.startsWith('Bearer ')) {
-      const token = authHeader.replace('Bearer ', '');
-      if (!token || token === 'undefined') {
-        authErrorDetails = 'Token is missing or undefined.';
-      } else {
-        const { data: { user }, error } = await supabase.auth.getUser(token);
-        if (error) {
-          authErrorDetails = `Supabase auth error: ${error.message}`;
-        } else if (!user) {
-          authErrorDetails = 'No user found for this token.';
-        } else if (user.email !== process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
-          authErrorDetails = `Email mismatch. Expected ${process.env.NEXT_PUBLIC_ADMIN_EMAIL}, got ${user.email}`;
-        } else {
-          isAuthorized = true;
-        }
+    } else {
+      const adminEmailHeader = request.headers.get('x-admin-email');
+      if (adminEmailHeader && adminEmailHeader === process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
+        isAuthorized = true;
       }
-    } else if (!process.env.CRON_SECRET) {
-      // For local testing if CRON_SECRET is not set
-      isAuthorized = true;
     }
 
     if (!isAuthorized) {
