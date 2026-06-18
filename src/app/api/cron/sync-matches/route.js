@@ -84,7 +84,19 @@ export async function GET(request) {
     });
 
     if (upsertPayload.length > 0) {
-      const { error } = await supabase
+      // We must use the Service Role Key to bypass RLS for background jobs
+      // If it doesn't exist, we fallback to the normal client (which will fail if RLS is enabled)
+      let supabaseAdmin = supabase;
+      
+      if (process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        const { createClient } = require('@supabase/supabase-js');
+        supabaseAdmin = createClient(
+          process.env.NEXT_PUBLIC_SUPABASE_URL,
+          process.env.SUPABASE_SERVICE_ROLE_KEY
+        );
+      }
+
+      const { error } = await supabaseAdmin
         .from('official_matches')
         .upsert(upsertPayload, { onConflict: 'match_id' });
 
