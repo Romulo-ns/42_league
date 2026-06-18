@@ -90,7 +90,7 @@ export async function GET(request) {
 
       if (error) {
         console.error("Supabase upsert error:", error);
-        return NextResponse.json({ error: 'Failed to save to database' }, { status: 500 });
+        return NextResponse.json({ error: 'Failed to save to database', details: error.message || JSON.stringify(error) }, { status: 500 });
       }
 
       return NextResponse.json({ 
